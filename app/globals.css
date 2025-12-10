@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-kumbh-sans), system-ui, -apple-system, sans-serif;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -13,6 +17,5 @@ body {
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-rgb));
+  font-family: var(--font-sans);
 }
