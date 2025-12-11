@@ -1,15 +1,11 @@
 import axios from 'axios';
-
-const API_BASE_URL = 'https://case.nodelabs.dev/api';
-
+const API_BASE_URL = 'https:
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
 });
-
-// Request interceptor to add token
 apiClient.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('authToken');
@@ -20,8 +16,6 @@ apiClient.interceptors.request.use(
   },
   (error) => Promise.reject(error)
 );
-
-// Response interceptor to handle errors
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -33,21 +27,54 @@ apiClient.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-// Auth API endpoints
 export const authAPI = {
   signIn: async (email: string, password: string) => {
-    const response = await apiClient.post('/auth/signin', { email, password });
+    const response = await apiClient.post('/users/login', { email, password });
     return response.data;
   },
-
-  signUp: async (name: string, email: string, password: string) => {
-    const response = await apiClient.post('/auth/signup', { name, email, password });
+  signUp: async (fullName: string, email: string, password: string) => {
+    const response = await apiClient.post('/users/register', { fullName, email, password });
     return response.data;
   },
-
   getCurrentUser: async () => {
-    const response = await apiClient.get('/auth/me');
+    const response = await apiClient.get('/users/profile');
     return response.data;
+  },
+};
+export const dashboardAPI = {
+  getSummary: async () => {
+    const response = await apiClient.get('/financial/summary');
+    return response.data.data || response.data;
+  },
+  getWorkingCapital: async (period: 'week' | 'month' | 'year' = 'month') => {
+    const response = await apiClient.get('/financial/working-capital');
+    const responseData = response.data.data || response.data;
+    if (responseData && typeof responseData === 'object' && Array.isArray(responseData.data)) {
+      return responseData.data;
+    }
+    if (Array.isArray(responseData)) {
+      return responseData;
+    }
+    if (responseData && typeof responseData === 'object') {
+      if (Array.isArray(responseData.workingCapital)) return responseData.workingCapital;
+      if (Array.isArray(responseData.items)) return responseData.items;
+      if (Array.isArray(responseData.chartData)) return responseData.chartData;
+    }
+    return [];
+  },
+  getTransactions: async (limit: number = 5) => {
+    const response = await apiClient.get('/financial/transactions/recent');
+    const data = response.data.data?.transactions || response.data.data || response.data;
+    return Array.isArray(data) ? data : [];
+  },
+  getWallet: async () => {
+    const response = await apiClient.get('/financial/wallet');
+    const data = response.data.data?.cards || response.data.data || response.data;
+    return Array.isArray(data) ? data : [];
+  },
+  getScheduledTransfers: async () => {
+    const response = await apiClient.get('/financial/transfers/scheduled');
+    const data = response.data.data?.transfers || response.data.data || response.data;
+    return Array.isArray(data) ? data : [];
   },
 };

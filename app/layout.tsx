@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Kumbh_Sans } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "./lib/auth-context";
+import { QueryProvider } from "./lib/query-client";
+import MuiProvider from "./lib/mui-provider";
 import "./globals.css";
 
 const kumbhSans = Kumbh_Sans({
@@ -25,33 +27,37 @@ export default function RootLayout({
       <body
         className={`${kumbhSans.variable} font-sans antialiased`}
       >
-        <AuthProvider>
-          {children}
-          <Toaster
-            position="top-right"
-            toastOptions={{
-              duration: 4000,
-              style: {
-                background: '#363636',
-                color: '#fff',
-              },
-              success: {
-                duration: 3000,
-                iconTheme: {
-                  primary: '#4ade80',
-                  secondary: '#fff',
-                },
-              },
-              error: {
-                duration: 4000,
-                iconTheme: {
-                  primary: '#ef4444',
-                  secondary: '#fff',
-                },
-              },
-            }}
-          />
-        </AuthProvider>
+        <MuiProvider>
+          <AuthProvider>
+            <QueryProvider>
+              {children}
+              <Toaster
+                position="top-right"
+                toastOptions={{
+                  duration: 4000,
+                  style: {
+                    background: '#363636',
+                    color: '#fff',
+                  },
+                  success: {
+                    duration: 3000,
+                    iconTheme: {
+                      primary: '#4ade80',
+                      secondary: '#fff',
+                    },
+                  },
+                  error: {
+                    duration: 4000,
+                    iconTheme: {
+                      primary: '#ef4444',
+                      secondary: '#fff',
+                    },
+                  },
+                }}
+              />
+            </QueryProvider>
+          </AuthProvider>
+        </MuiProvider>
       </body>
     </html>
   );

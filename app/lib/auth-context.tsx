@@ -1,15 +1,12 @@
 'use client';
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { authAPI } from './api';
-
 interface User {
   id: string;
   name: string;
   email: string;
 }
-
 interface AuthContextType {
   user: User | null;
   isLoading: boolean;
@@ -18,21 +15,15 @@ interface AuthContextType {
   signUp: (name: string, email: string, password: string) => Promise<void>;
   signOut: () => void;
 }
-
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-
   const isAuthenticated = !!user;
-
-  // Check if user is already logged in on mount
   useEffect(() => {
     const token = localStorage.getItem('authToken');
     const savedUser = localStorage.getItem('user');
-
     if (token && savedUser) {
       try {
         setUser(JSON.parse(savedUser));
@@ -44,36 +35,44 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
     setIsLoading(false);
   }, []);
-
   const signIn = async (email: string, password: string) => {
     const data = await authAPI.signIn(email, password);
-
-    // Store token and user data
-    localStorage.setItem('authToken', data.token);
-    localStorage.setItem('user', JSON.stringify(data.user));
-    setUser(data.user);
-
+    console.log('Sign in response:', data);
+    const responseData = data.data || data;
+    const token = responseData.accessToken || responseData.token || data.accessToken;
+    const userData = responseData.user || data.user;
+    console.log('Token:', token);
+    console.log('User data:', userData);
+    if (!token || !userData) {
+      throw new Error('Invalid response from server');
+    }
+    localStorage.setItem('authToken', token);
+    localStorage.setItem('user', JSON.stringify(userData));
+    setUser(userData);
     router.push('/dashboard');
   };
-
   const signUp = async (name: string, email: string, password: string) => {
     const data = await authAPI.signUp(name, email, password);
-
-    // Store token and user data
-    localStorage.setItem('authToken', data.token);
-    localStorage.setItem('user', JSON.stringify(data.user));
-    setUser(data.user);
-
+    console.log('Sign up response:', data);
+    const responseData = data.data || data;
+    const token = responseData.accessToken || responseData.token || data.accessToken;
+    const userData = responseData.user || data.user;
+    console.log('Token:', token);
+    console.log('User data:', userData);
+    if (!token || !userData) {
+      throw new Error('Invalid response from server');
+    }
+    localStorage.setItem('authToken', token);
+    localStorage.setItem('user', JSON.stringify(userData));
+    setUser(userData);
     router.push('/dashboard');
   };
-
   const signOut = () => {
     localStorage.removeItem('authToken');
     localStorage.removeItem('user');
     setUser(null);
     router.push('/auth/sign-in');
   };
-
   return (
     <AuthContext.Provider
       value={{
@@ -89,7 +88,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     </AuthContext.Provider>
   );
 }
-
 export function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined) {

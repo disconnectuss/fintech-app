@@ -2,6 +2,18 @@
 
 @theme {
   --font-sans: var(--font-kumbh-sans), system-ui, -apple-system, sans-serif;
+
+  /* Custom colors */
+  --color-primary: #C8EE44;
+  --color-primary-hover: #b8de34;
+  --color-sidebar-bg: #1a1a2e;
+  --color-card-gradient-start: #2d2d44;
+  --color-card-gradient-end: #1f1f33;
+
+  /* Animation durations */
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
 }
 
 * {
@@ -18,4 +30,93 @@ body {
 
 body {
   font-family: var(--font-sans);
+}
+
+/* Shimmer animation for loading skeletons */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e0e0e0 50%,
+    #f0f0f0 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+/* Slide in animation */
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Number counting animation */
+@keyframes countUp {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.count-up {
+  animation: countUp 0.5s ease-out;
+}
+
+/* Smooth transitions */
+.transition-smooth {
+  transition: all var(--duration-normal) ease-in-out;
+}
+
+/* Hover lift effect */
+.hover-lift {
+  transition: transform var(--duration-fast) ease-in-out;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+/* Card 3D effect */
+.card-3d {
+  transition: transform var(--duration-normal) ease-in-out;
+  transform-style: preserve-3d;
+}
+
+.card-3d:hover {
+  transform: rotateY(5deg) rotateX(5deg);
 }

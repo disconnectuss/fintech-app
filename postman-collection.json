@@ -1,0 +1,230 @@
+{
+  "info": {
+    "_postman_id": "nodelabs-case-api-2025",
+    "name": "NodeLabs Case API (Local)",
+    "description": "Base URL: http://localhost:5737/api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register New User",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"{{fullName}}\",\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users/register",
+              "host": ["{{base_url}}"],
+              "path": ["users", "register"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const json = pm.response.json();",
+                  "    pm.environment.set(\"accessToken\", json.data.accessToken);",
+                  "    pm.environment.set(\"refreshToken\", json.data.refreshToken);",
+                  "    console.log(\"Token kaydedildi!\");",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users/login",
+              "host": ["{{base_url}}"],
+              "path": ["users", "login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"{{refreshToken}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users/refresh-token",
+              "host": ["{{base_url}}"],
+              "path": ["users", "refresh-token"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/logout",
+              "host": ["{{base_url}}"],
+              "path": ["users", "logout"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/profile",
+              "host": ["{{base_url}}"],
+              "path": ["users", "profile"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Financial (Mock Data)",
+      "item": [
+        {
+          "name": "Summary Dashboard",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/financial/summary",
+              "host": ["{{base_url}}"],
+              "path": ["financial", "summary"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Working Capital (6 Months)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/financial/working-capital",
+              "host": ["{{base_url}}"],
+              "path": ["financial", "working-capital"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Wallet Cards",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/financial/wallet",
+              "host": ["{{base_url}}"],
+              "path": ["financial", "wallet"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Recent Transactions",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/financial/transactions/recent",
+              "host": ["{{base_url}}"],
+              "path": ["financial", "transactions", "recent"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Scheduled Transfers",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/financial/transfers/scheduled",
+              "host": ["{{base_url}}"],
+              "path": ["financial", "transfers", "scheduled"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5737/api",
+      "type": "string"
+    },
+    {
+      "key": "fullName",
+      "value": "Ahmet Yılmaz",
+      "type": "string"
+    },
+    {
+      "key": "email",
+      "value": "ahmet@example.com",
+      "type": "string"
+    },
+    {
+      "key": "password",
+      "value": "Password123",
+      "type": "string"
+    }
+  ]
+}

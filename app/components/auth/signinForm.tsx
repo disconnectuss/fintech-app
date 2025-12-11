@@ -41,7 +41,7 @@ export default function SignInForm() {
     try {
       await signIn(email, password);
       toast.success('Successfully signed in!');
-      router.push('/dashboard');
+      // Note: router.push is handled in auth context
     } catch (error: any) {
       const errorMessage =
         error.response?.data?.message ||

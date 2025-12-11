@@ -49,12 +49,28 @@ export default function SignUpForm() {
     try {
       await signUp(name, email, password);
       toast.success('Account created successfully!');
-      router.push('/dashboard');
+      // Note: router.push is handled in auth context
     } catch (error: any) {
-      const errorMessage =
-        error.response?.data?.message ||
-        error.message ||
-        'Failed to create account. Please try again.';
+      console.error('Sign up error:', error.response || error);
+      console.error('Validation details:', error.response?.data?.details);
+      let errorMessage = 'Failed to create account. Please try again.';
+
+      if (error.response?.status === 409) {
+        errorMessage = 'This email is already registered. Please sign in instead.';
+      } else if (error.response?.status === 400) {
+        // Check if there are validation details
+        const details = error.response?.data?.details;
+        if (details && details.length > 0) {
+          errorMessage = details.map((d: any) => d.message || d).join(', ');
+        } else {
+          errorMessage = error.response?.data?.message || 'Invalid form data. Please check your inputs.';
+        }
+      } else if (error.response?.data?.message) {
+        errorMessage = error.response.data.message;
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+
       toast.error(errorMessage);
     } finally {
       setIsLoading(false);
@@ -84,8 +100,8 @@ export default function SignUpForm() {
           }}
           disabled={isLoading}
           className={`w-full px-4 py-3 border ${errors.name
-              ? 'border-red-500'
-              : 'border-gray-300'
+            ? 'border-red-500'
+            : 'border-gray-300'
             } rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-lime-500 focus:border-lime-500 disabled:bg-gray-50 disabled:cursor-not-allowed transition-colors`}
           placeholder="John Doe"
         />
@@ -115,8 +131,8 @@ export default function SignUpForm() {
           }}
           disabled={isLoading}
           className={`w-full px-4 py-3 border ${errors.email
-              ? 'border-red-500'
-              : 'border-gray-300'
+            ? 'border-red-500'
+            : 'border-gray-300'
             } rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-lime-500 focus:border-lime-500 disabled:bg-gray-50 disabled:cursor-not-allowed transition-colors`}
           placeholder="example@gmail.com"
         />
@@ -146,8 +162,8 @@ export default function SignUpForm() {
           }}
           disabled={isLoading}
           className={`w-full px-4 py-3 border ${errors.password
-              ? 'border-red-500'
-              : 'border-gray-300'
+            ? 'border-red-500'
+            : 'border-gray-300'
             } rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-lime-500 focus:border-lime-500 disabled:bg-gray-50 disabled:cursor-not-allowed transition-colors`}
           placeholder="Create a password"
         />
