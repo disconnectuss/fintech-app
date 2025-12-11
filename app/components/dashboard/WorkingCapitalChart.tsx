@@ -14,13 +14,7 @@ import {
 import Card from '../ui/Card';
 import { useWorkingCapital } from '@/app/lib/hooks/use-dashboard';
 import ChartSkeleton from './skeletons/ChartSkeleton';
-
-type Period = 'week' | 'month' | 'year';
-
-interface PeriodTab {
-  key: Period;
-  label: string;
-}
+import type { Period, PeriodTab } from '@/app/lib/types';
 
 const periodTabs: PeriodTab[] = [
   { key: 'week', label: 'Last 7 Days' },

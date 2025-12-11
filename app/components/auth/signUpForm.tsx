@@ -4,21 +4,17 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { useAuth } from '@/app/lib/auth-context';
-interface FormErrors {
-  name?: string;
-  email?: string;
-  password?: string;
-}
+import type { SignUpFormErrors } from '@/app/lib/types';
 export default function SignUpForm() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState<FormErrors>({});
+  const [errors, setErrors] = useState<SignUpFormErrors>({});
   const [isLoading, setIsLoading] = useState(false);
   const { signUp } = useAuth();
   const router = useRouter();
   const validateForm = (): boolean => {
-    const newErrors: FormErrors = {};
+    const newErrors: SignUpFormErrors = {};
     if (!name.trim()) {
       newErrors.name = 'Full name is required';
     } else if (name.trim().length < 2) {

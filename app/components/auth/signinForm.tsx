@@ -5,19 +5,16 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { useAuth } from '@/app/lib/auth-context';
 import Image from 'next/image';
-interface FormErrors {
-  email?: string;
-  password?: string;
-}
+import type { SignInFormErrors } from '@/app/lib/types';
 export default function SignInForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState<FormErrors>({});
+  const [errors, setErrors] = useState<SignInFormErrors>({});
   const [isLoading, setIsLoading] = useState(false);
   const { signIn } = useAuth();
   const router = useRouter();
   const validateForm = (): boolean => {
-    const newErrors: FormErrors = {};
+    const newErrors: SignInFormErrors = {};
     if (!email.trim()) {
       newErrors.email = 'Email is required';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {

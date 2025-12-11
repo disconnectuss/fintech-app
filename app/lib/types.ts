@@ -1,9 +1,38 @@
+import type { ButtonHTMLAttributes, ReactNode } from 'react';
+
 // User types
 export interface User {
   id: string;
   name?: string;
   fullName?: string;
   email: string;
+}
+
+export interface AuthContextType {
+  user: User | null;
+  isLoading: boolean;
+  isAuthenticated: boolean;
+  signIn: (email: string, password: string) => Promise<void>;
+  signUp: (name: string, email: string, password: string) => Promise<void>;
+  signOut: () => void;
+}
+
+// Auth/UI helper interfaces
+export interface AuthGuardProps {
+  children: ReactNode;
+  redirectTo?: string;
+  requireAuth?: boolean;
+}
+
+export interface SignInFormErrors {
+  email?: string;
+  password?: string;
+}
+
+export interface SignUpFormErrors {
+  name?: string;
+  email?: string;
+  password?: string;
 }
 
 // Dashboard Summary (matching API response from /financial/summary)
@@ -110,4 +139,96 @@ export interface PaginatedResponse<T> {
   page: number;
   limit: number;
   hasMore: boolean;
+}
+
+// Dashboard/Chart helpers
+export type Period = 'week' | 'month' | 'year';
+
+export interface PeriodTab {
+  key: Period;
+  label: string;
+}
+
+export interface TrendProps {
+  direction: 'up' | 'down';
+  percentage: number;
+}
+
+export interface StatsCardProps {
+  title: string;
+  value: number;
+  currency: string;
+  icon: ReactNode;
+  trend?: TrendProps;
+}
+
+export interface MuiStatCardProps extends StatsCardProps {
+  bgcolor?: string;
+}
+
+export interface SidebarProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export interface NavItem {
+  text: string;
+  icon: ReactNode;
+  path: string;
+  section?: 'main' | 'bottom';
+}
+
+export interface CreditCardProps {
+  card: Card;
+}
+
+// UI components
+export interface ErrorBoundaryProps {
+  children: ReactNode;
+  fallback?: ReactNode;
+}
+
+export interface ErrorBoundaryState {
+  hasError: boolean;
+  error?: Error;
+}
+
+export interface SkeletonProps {
+  className?: string;
+  variant?: 'text' | 'circular' | 'rectangular';
+  width?: string | number;
+  height?: string | number;
+  animation?: 'pulse' | 'wave' | 'none';
+}
+
+export interface AvatarProps {
+  src?: string;
+  alt: string;
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  fallback?: string;
+  className?: string;
+}
+
+export interface ButtonProps
+  extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children: ReactNode;
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
+  size?: 'sm' | 'md' | 'lg';
+  loading?: boolean;
+  disabled?: boolean;
+  className?: string;
+}
+
+export interface CardProps {
+  children: ReactNode;
+  className?: string;
+  padding?: 'none' | 'sm' | 'md' | 'lg';
+  shadow?: 'none' | 'sm' | 'md' | 'lg';
+}
+
+export interface BadgeProps {
+  children: ReactNode;
+  variant?: 'success' | 'warning' | 'error' | 'info' | 'default';
+  size?: 'sm' | 'md' | 'lg';
+  className?: string;
 }

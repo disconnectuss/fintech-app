@@ -1,10 +1,5 @@
 import { clsx } from 'clsx';
-interface CardProps {
-  children: React.ReactNode;
-  className?: string;
-  padding?: 'none' | 'sm' | 'md' | 'lg';
-  shadow?: 'none' | 'sm' | 'md' | 'lg';
-}
+import type { CardProps } from '@/app/lib/types';
 export default function Card({
   children,
   className,

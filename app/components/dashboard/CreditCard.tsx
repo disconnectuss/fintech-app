@@ -1,9 +1,5 @@
-import { Card as CardType } from '@/app/lib/types';
+import type { CreditCardProps } from '@/app/lib/types';
 import { formatCardNumber, formatExpiryDate } from '@/app/lib/utils/formatters';
-
-interface CreditCardProps {
-  card: CardType;
-}
 
 export default function CreditCard({ card }: CreditCardProps) {
   // Determine gradient based on card type or use custom color

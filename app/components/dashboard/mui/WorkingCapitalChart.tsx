@@ -4,8 +4,7 @@ import React, { useState } from 'react';
 import { Card, CardContent, Typography, Box, ButtonGroup, Button, CircularProgress } from '@mui/material';
 import { LineChart } from '@mui/x-charts/LineChart';
 import { useWorkingCapital } from '@/app/lib/hooks/use-dashboard';
-
-type Period = 'week' | 'month' | 'year';
+import type { Period } from '@/app/lib/types';
 
 export default function WorkingCapitalChart() {
   const [selectedPeriod, setSelectedPeriod] = useState<Period>('month');

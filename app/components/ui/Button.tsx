@@ -1,12 +1,5 @@
 import { clsx } from 'clsx';
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode;
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
-  size?: 'sm' | 'md' | 'lg';
-  loading?: boolean;
-  disabled?: boolean;
-  className?: string;
-}
+import type { ButtonProps } from '@/app/lib/types';
 export default function Button({
   children,
   variant = 'primary',

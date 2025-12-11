@@ -1,11 +1,5 @@
 import { clsx } from 'clsx';
-interface SkeletonProps {
-  className?: string;
-  variant?: 'text' | 'circular' | 'rectangular';
-  width?: string | number;
-  height?: string | number;
-  animation?: 'pulse' | 'wave' | 'none';
-}
+import type { SkeletonProps } from '@/app/lib/types';
 export default function Skeleton({
   className,
   variant = 'text',

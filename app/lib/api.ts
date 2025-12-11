@@ -1,5 +1,6 @@
 import axios from 'axios';
-const API_BASE_URL = 'https:
+const API_BASE_URL = 'https://case.nodelabs.dev/api';
+
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,
   headers: {

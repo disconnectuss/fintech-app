@@ -3,18 +3,7 @@
 import React from 'react';
 import { Card, CardContent, Typography, Box } from '@mui/material';
 import { TrendingUp as TrendingUpIcon, TrendingDown as TrendingDownIcon } from '@mui/icons-material';
-
-interface StatCardProps {
-  title: string;
-  value: number;
-  currency: string;
-  icon: React.ReactNode;
-  trend?: {
-    direction: 'up' | 'down';
-    percentage: number;
-  };
-  bgcolor?: string;
-}
+import type { MuiStatCardProps } from '@/app/lib/types';
 
 export default function StatCard({
   title,
@@ -23,7 +12,7 @@ export default function StatCard({
   icon,
   trend,
   bgcolor = '#FFFFFF',
-}: StatCardProps) {
+}: MuiStatCardProps) {
   const formatValue = (val: number) => {
     return new Intl.NumberFormat('en-US', {
       minimumFractionDigits: 2,

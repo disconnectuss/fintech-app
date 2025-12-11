@@ -2,11 +2,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/app/lib/auth-context';
-interface AuthGuardProps {
-  children: React.ReactNode;
-  redirectTo?: string;
-  requireAuth?: boolean;
-}
+import type { AuthGuardProps } from '@/app/lib/types';
 export default function AuthGuard({
   children,
   redirectTo = '/dashboard',

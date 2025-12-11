@@ -23,15 +23,9 @@ import {
 } from '@mui/icons-material';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/app/lib/auth-context';
+import type { NavItem } from '@/app/lib/types';
 
 const DRAWER_WIDTH = 240;
-
-interface NavItem {
-  text: string;
-  icon: React.ReactNode;
-  path: string;
-  section?: 'main' | 'bottom';
-}
 
 const navItems: NavItem[] = [
   { text: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard', section: 'main' },

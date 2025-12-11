@@ -5,11 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { useAuth } from '@/app/lib/auth-context';
-
-interface SidebarProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+import type { SidebarProps } from '@/app/lib/types';
 
 export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   const pathname = usePathname();

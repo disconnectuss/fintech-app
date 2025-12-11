@@ -1,12 +1,6 @@
 import { clsx } from 'clsx';
 import Image from 'next/image';
-interface AvatarProps {
-  src?: string;
-  alt: string;
-  size?: 'sm' | 'md' | 'lg' | 'xl';
-  fallback?: string;
-  className?: string;
-}
+import type { AvatarProps } from '@/app/lib/types';
 export default function Avatar({
   src,
   alt,

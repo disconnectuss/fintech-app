@@ -1,10 +1,5 @@
 import { clsx } from 'clsx';
-interface BadgeProps {
-  children: React.ReactNode;
-  variant?: 'success' | 'warning' | 'error' | 'info' | 'default';
-  size?: 'sm' | 'md' | 'lg';
-  className?: string;
-}
+import type { BadgeProps } from '@/app/lib/types';
 export default function Badge({
   children,
   variant = 'default',

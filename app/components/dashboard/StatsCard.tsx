@@ -1,19 +1,6 @@
-import { ReactNode } from 'react';
 import Card from '@/app/components/ui/Card';
 import { formatCurrency } from '@/app/lib/utils/formatters';
-
-interface TrendProps {
-  direction: 'up' | 'down';
-  percentage: number;
-}
-
-interface StatsCardProps {
-  title: string;
-  value: number;
-  currency: string;
-  icon: ReactNode;
-  trend?: TrendProps;
-}
+import type { StatsCardProps } from '@/app/lib/types';
 
 export default function StatsCard({
   title,
