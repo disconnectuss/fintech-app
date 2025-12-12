@@ -47,14 +47,14 @@ export default function StatCard({
         },
       }}
     >
-      <CardContent sx={{ p: 3 }}>
+      <CardContent sx={{ p: { xs: 2, sm: 2.5, md: 3 } }}>
         {/* Header - Icon and Title */}
-        <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', mb: 2 }}>
+        <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', mb: { xs: 1.5, sm: 2 } }}>
           <Typography
             variant="body2"
             sx={{
               color: isDarkCard ? 'var(--text-inverted)' : 'var(--text-secondary)',
-              fontSize: 13,
+              fontSize: { xs: 12, sm: 13 },
               fontWeight: 500,
             }}
           >
@@ -62,14 +62,17 @@ export default function StatCard({
           </Typography>
           <Box
             sx={{
-              width: 40,
-              height: 40,
+              width: { xs: 36, sm: 40 },
+              height: { xs: 36, sm: 40 },
               borderRadius: 2,
               bgcolor: isDarkCard ? 'var(--overlay-card-inverted)' : 'var(--overlay-card)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               color: isDarkCard ? 'var(--brand-primary)' : 'var(--text-secondary)',
+              '& svg': {
+                fontSize: { xs: 20, sm: 24 },
+              },
             }}
           >
             {icon}
@@ -83,6 +86,7 @@ export default function StatCard({
             fontWeight: 700,
             color: isDarkCard ? 'var(--text-inverted)' : 'var(--text-primary)',
             mb: 1,
+            fontSize: { xs: '1.5rem', sm: '1.75rem', md: '2rem' },
           }}
         >
           {getCurrencySymbol(currency)}

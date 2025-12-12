@@ -232,3 +232,22 @@ export interface BadgeProps {
   size?: 'sm' | 'md' | 'lg';
   className?: string;
 }
+
+// Search types
+export type SearchResultType = 'transaction' | 'transfer' | 'card';
+
+export interface SearchResult {
+  id: string;
+  type: SearchResultType;
+  title: string;
+  subtitle: string;
+  amount?: number;
+  currency?: string;
+  image?: string;
+  date?: string;
+}
+
+export interface SearchResponse {
+  results: SearchResult[];
+  total: number;
+}

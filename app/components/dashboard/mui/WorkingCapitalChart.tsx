@@ -9,12 +9,47 @@ import type { Period } from '@/app/lib/types';
 export default function WorkingCapitalChart() {
   const [selectedPeriod, setSelectedPeriod] = useState<Period>('month');
   const { data, isLoading, isError } = useWorkingCapital(selectedPeriod);
+  const [isSmUp, setIsSmUp] = useState(true);
+
+  React.useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    const breakpoint = 600;
+    const handleResize = () => {
+      setIsSmUp(window.innerWidth >= breakpoint);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   // Extract data for chart
+  React.useEffect(() => {
+    if (data || isError) {
+      console.log('WorkingCapital data', {
+        period: selectedPeriod,
+        data,
+        error: isError,
+      });
+    }
+  }, [data, isError, selectedPeriod]);
   const chartData = data || [];
   const months = chartData.map((d) => d.month);
   const incomeData = chartData.map((d) => d.income);
   const expenseData = chartData.map((d) => d.expense);
+  const tickFontSize = isSmUp ? 12 : 10;
+  const chartHeight = isSmUp ? 300 : 250;
+  const chartMargin = {
+    top: 10,
+    right: isSmUp ? 10 : 5,
+    bottom: 30,
+    left: isSmUp ? 60 : 40,
+  };
+  const lineWidth = isSmUp ? 2 : 1.5;
+  const markScale = isSmUp ? 0.8 : 0.6;
 
   if (isLoading) {
     return (
@@ -45,15 +80,15 @@ export default function WorkingCapitalChart() {
 
   return (
     <Card>
-      <CardContent sx={{ p: 3 }}>
+      <CardContent sx={{ p: { xs: 2, sm: 2.5, md: 3 } }}>
         {/* Header */}
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-          <Typography variant="h6" sx={{ fontWeight: 600 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: { xs: 2, sm: 3 }, flexWrap: 'wrap', gap: 2 }}>
+          <Typography variant="h6" sx={{ fontWeight: 600, fontSize: { xs: '1rem', sm: '1.25rem' } }}>
             Working Capital
           </Typography>
 
           {/* Period Selector */}
-          <ButtonGroup size="small" sx={{ bgcolor: 'background.paper' }}>
+          <ButtonGroup size="small" sx={{ bgcolor: 'background.paper', flexShrink: 0 }}>
             <Button
               variant={selectedPeriod === 'week' ? 'contained' : 'outlined'}
               onClick={() => setSelectedPeriod('week')}
@@ -125,14 +160,14 @@ export default function WorkingCapitalChart() {
         </Box>
 
         {/* Chart */}
-        <Box sx={{ width: '100%', height: 300 }}>
+        <Box sx={{ width: '100%', height: chartHeight, overflowX: 'auto' }}>
           <LineChart
             xAxis={[
               {
                 scaleType: 'point',
                 data: months,
                 tickLabelStyle: {
-                  fontSize: 12,
+                  fontSize: tickFontSize,
                   fill: 'var(--text-secondary)',
                 },
               },
@@ -140,7 +175,7 @@ export default function WorkingCapitalChart() {
             yAxis={[
               {
                 tickLabelStyle: {
-                  fontSize: 12,
+                  fontSize: tickFontSize,
                   fill: 'var(--text-secondary)',
                 },
                 valueFormatter: (value: number) => `$${(value / 1000).toFixed(0)}k`,
@@ -162,14 +197,14 @@ export default function WorkingCapitalChart() {
                 showMark: true,
               },
             ]}
-            height={300}
-            margin={{ top: 10, right: 10, bottom: 30, left: 60 }}
+            height={chartHeight}
+            margin={chartMargin}
             sx={{
               '& .MuiLineElement-root': {
-                strokeWidth: 2,
+                strokeWidth: lineWidth,
               },
               '& .MuiMarkElement-root': {
-                scale: '0.8',
+                transform: `scale(${markScale})`,
               },
             }}
           />

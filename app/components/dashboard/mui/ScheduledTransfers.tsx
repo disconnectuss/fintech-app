@@ -49,16 +49,16 @@ export default function ScheduledTransfers() {
 
   return (
     <Card>
-      <CardContent sx={{ p: 3 }}>
+      <CardContent sx={{ p: { xs: 2, sm: 2.5, md: 3 } }}>
         {/* Header */}
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-          <Typography variant="h6" sx={{ fontWeight: 600 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: { xs: 1.5, sm: 2 } }}>
+          <Typography variant="h6" sx={{ fontWeight: 600, fontSize: { xs: '1rem', sm: '1.25rem' } }}>
             Scheduled Transfers
           </Typography>
           <MuiLink
             href="/transfers"
             sx={{
-              fontSize: 13,
+              fontSize: { xs: 12, sm: 13 },
               color: 'var(--info-500)',
               textDecoration: 'none',
               fontWeight: 600,
@@ -68,7 +68,8 @@ export default function ScheduledTransfers() {
               },
             }}
           >
-            View All →
+            <Box component="span" sx={{ display: { xs: 'none', sm: 'inline' } }}>View All →</Box>
+            <Box component="span" sx={{ display: { xs: 'inline', sm: 'none' } }}>View All</Box>
           </MuiLink>
         </Box>
 
@@ -84,13 +85,13 @@ export default function ScheduledTransfers() {
                 key={transfer.id}
                 sx={{
                   px: 0,
-                  py: 2,
+                  py: { xs: 1.5, sm: 2 },
                   borderBottom: index === transfers.length - 1 ? 'none' : '1px solid var(--surface-soft)',
                   '&:hover': {
                     bgcolor: 'var(--surface-muted)',
                     borderRadius: 2,
-                    px: 2,
-                    mx: -2,
+                    px: { xs: 1, sm: 2 },
+                    mx: { xs: -1, sm: -2 },
                   },
                 }}
               >
@@ -99,12 +100,12 @@ export default function ScheduledTransfers() {
                     src={avatarUrl}
                     alt={recipientName}
                     sx={{
-                      width: 40,
-                      height: 40,
+                      width: { xs: 36, sm: 40 },
+                      height: { xs: 36, sm: 40 },
                       bgcolor: 'var(--brand-primary)',
                       color: 'var(--text-primary)',
                       fontWeight: 600,
-                      fontSize: 14,
+                      fontSize: { xs: 13, sm: 14 },
                     }}
                   >
                     {recipientName
@@ -117,12 +118,12 @@ export default function ScheduledTransfers() {
                 </ListItemAvatar>
                 <ListItemText
                   primary={
-                    <Typography variant="body2" sx={{ fontWeight: 600, color: 'var(--text-primary)' }}>
+                    <Typography variant="body2" sx={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: { xs: 13, sm: 14 } }}>
                       {recipientName}
                     </Typography>
                   }
                   secondary={
-                    <Typography variant="caption" sx={{ color: 'var(--text-secondary)' }}>
+                    <Typography variant="caption" sx={{ color: 'var(--text-secondary)', fontSize: { xs: 11, sm: 12 } }}>
                       {formatDateTime(scheduledDate)}
                     </Typography>
                   }
@@ -132,7 +133,8 @@ export default function ScheduledTransfers() {
                   sx={{
                     fontWeight: 700,
                     color: 'var(--text-primary)',
-                    ml: 2,
+                    ml: { xs: 1, sm: 2 },
+                    fontSize: { xs: 13, sm: 14 },
                   }}
                 >
                   - {transfer.currency}
