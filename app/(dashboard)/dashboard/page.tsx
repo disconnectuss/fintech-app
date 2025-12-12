@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { Box, Grid, Toolbar } from '@mui/material';
+import { Box, Toolbar, Grid } from '@mui/material';
 import {
   AccountBalance as BalanceIcon,
   ShoppingBag as ShoppingIcon,
@@ -22,7 +22,7 @@ export default function DashboardPage() {
   return (
     <AuthGuard requireAuth>
       <ErrorBoundary>
-        <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: 'var(--color-surface-subtle)' }}>
+        <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: 'var(--surface-subtle)' }}>
           <Sidebar />
           {/* Main Content */}
           <Box
@@ -39,13 +39,13 @@ export default function DashboardPage() {
             <Box sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
               {/* Stats Cards */}
               <Grid container spacing={3} sx={{ mb: 4 }}>
-                <Grid item xs={12} sm={6} md={4}>
+                <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                   <StatCard
                     title="Total balance"
                     value={summary?.totalBalance?.amount || 5240.21}
                     currency={summary?.totalBalance?.currency || 'USD'}
                     icon={<BalanceIcon />}
-                    bgcolor="var(--color-surface-dark)"
+                    bgcolor="var(--surface-dark)"
                     trend={
                       summary?.totalBalance?.change
                         ? {
@@ -56,7 +56,7 @@ export default function DashboardPage() {
                     }
                   />
                 </Grid>
-                <Grid item xs={12} sm={6} md={4}>
+                <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                   <StatCard
                     title="Total spending"
                     value={summary?.totalExpense?.amount || 250.8}
@@ -72,7 +72,7 @@ export default function DashboardPage() {
                     }
                   />
                 </Grid>
-                <Grid item xs={12} sm={6} md={4}>
+                <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                   <StatCard
                     title="Total saved"
                     value={summary?.totalSavings?.amount || 550.25}
@@ -92,27 +92,27 @@ export default function DashboardPage() {
               {/* Main Content Grid */}
               <Grid container spacing={3}>
                 {/* Left Column - Main Content */}
-                <Grid item xs={12} lg={8}>
+                <Grid size={{ xs: 12, lg: 8 }}>
                   <Grid container spacing={3}>
                     {/* Working Capital Chart */}
-                    <Grid item xs={12}>
+                    <Grid size={{ xs: 12 }}>
                       <WorkingCapitalChart />
                     </Grid>
                     {/* Recent Transactions */}
-                    <Grid item xs={12}>
+                    <Grid size={{ xs: 12 }}>
                       <RecentTransactions />
                     </Grid>
                   </Grid>
                 </Grid>
                 {/* Right Column - Sidebar */}
-                <Grid item xs={12} lg={4}>
+                <Grid size={{ xs: 12, lg: 4 }}>
                   <Grid container spacing={3}>
                     {/* Wallet Section */}
-                    <Grid item xs={12}>
+                    <Grid size={{ xs: 12 }}>
                       <WalletSection />
                     </Grid>
                     {/* Scheduled Transfers */}
-                    <Grid item xs={12}>
+                    <Grid size={{ xs: 12 }}>
                       <ScheduledTransfers />
                     </Grid>
                   </Grid>

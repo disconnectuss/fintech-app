@@ -37,7 +37,7 @@ export default class ErrorBoundary extends Component<
             </p>
             <button
               onClick={this.handleReset}
-              className="bg-[var(--color-primary)] text-gray-900 font-semibold py-3 px-6 rounded-lg hover:bg-[var(--color-primary-hover)] transition-colors"
+              className="bg-[var(--brand-primary)] text-gray-900 font-semibold py-3 px-6 rounded-lg hover:bg-[var(--brand-primary-hover)] transition-colors"
             >
               Try Again
             </button>

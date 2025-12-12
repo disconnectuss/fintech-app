@@ -188,14 +188,14 @@ export default function SignUpForm() {
       <button
         type="submit"
         disabled={isLoading}
-        className="w-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-warning)] hover:from-[var(--color-primary-hover)] hover:to-[var(--color-warning-accent)] text-gray-900 font-semibold py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 mt-2"
+        className="w-full bg-gradient-to-r from-[var(--brand-primary)] to-[var(--warning-500)] hover:from-[var(--brand-primary-hover)] hover:to-[var(--warning-accent)] text-gray-900 font-semibold py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary)] focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 mt-2"
       >
         {isLoading ? 'Creating account...' : 'Sign up'}
       </button>
       {/* Google Sign Up Button */}
       <button
         type="button"
-        className="w-full bg-[var(--color-surface)] border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300 transition-all duration-200 flex items-center justify-center gap-3"
+        className="w-full bg-[var(--surface-base)] border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300 transition-all duration-200 flex items-center justify-center gap-3"
       >
         <GoogleIcon size={20} />
         Sign up with google

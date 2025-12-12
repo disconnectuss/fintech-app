@@ -60,12 +60,12 @@ export default function WorkingCapitalChart() {
               sx={{
                 textTransform: 'none',
                 fontSize: 12,
-                bgcolor: selectedPeriod === 'week' ? 'var(--color-surface-dark)' : 'transparent',
-                color: selectedPeriod === 'week' ? 'var(--color-text-inverted)' : 'var(--color-text-secondary)',
-                borderColor: 'var(--color-border)',
+                bgcolor: selectedPeriod === 'week' ? 'var(--surface-dark)' : 'transparent',
+                color: selectedPeriod === 'week' ? 'var(--text-inverted)' : 'var(--text-secondary)',
+                borderColor: 'var(--border-base)',
                 '&:hover': {
-                  bgcolor: selectedPeriod === 'week' ? 'var(--color-surface-dark)' : 'var(--color-surface-muted)',
-                  borderColor: 'var(--color-border)',
+                  bgcolor: selectedPeriod === 'week' ? 'var(--surface-dark)' : 'var(--surface-muted)',
+                  borderColor: 'var(--border-base)',
                 },
               }}
             >
@@ -77,12 +77,12 @@ export default function WorkingCapitalChart() {
               sx={{
                 textTransform: 'none',
                 fontSize: 12,
-                bgcolor: selectedPeriod === 'month' ? 'var(--color-surface-dark)' : 'transparent',
-                color: selectedPeriod === 'month' ? 'var(--color-text-inverted)' : 'var(--color-text-secondary)',
-                borderColor: 'var(--color-border)',
+                bgcolor: selectedPeriod === 'month' ? 'var(--surface-dark)' : 'transparent',
+                color: selectedPeriod === 'month' ? 'var(--text-inverted)' : 'var(--text-secondary)',
+                borderColor: 'var(--border-base)',
                 '&:hover': {
-                  bgcolor: selectedPeriod === 'month' ? 'var(--color-surface-dark)' : 'var(--color-surface-muted)',
-                  borderColor: 'var(--color-border)',
+                  bgcolor: selectedPeriod === 'month' ? 'var(--surface-dark)' : 'var(--surface-muted)',
+                  borderColor: 'var(--border-base)',
                 },
               }}
             >
@@ -94,12 +94,12 @@ export default function WorkingCapitalChart() {
               sx={{
                 textTransform: 'none',
                 fontSize: 12,
-                bgcolor: selectedPeriod === 'year' ? 'var(--color-surface-dark)' : 'transparent',
-                color: selectedPeriod === 'year' ? 'var(--color-text-inverted)' : 'var(--color-text-secondary)',
-                borderColor: 'var(--color-border)',
+                bgcolor: selectedPeriod === 'year' ? 'var(--surface-dark)' : 'transparent',
+                color: selectedPeriod === 'year' ? 'var(--text-inverted)' : 'var(--text-secondary)',
+                borderColor: 'var(--border-base)',
                 '&:hover': {
-                  bgcolor: selectedPeriod === 'year' ? 'var(--color-surface-dark)' : 'var(--color-surface-muted)',
-                  borderColor: 'var(--color-border)',
+                  bgcolor: selectedPeriod === 'year' ? 'var(--surface-dark)' : 'var(--surface-muted)',
+                  borderColor: 'var(--border-base)',
                 },
               }}
             >
@@ -111,14 +111,14 @@ export default function WorkingCapitalChart() {
         {/* Legend */}
         <Box sx={{ display: 'flex', gap: 3, mb: 2 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <Box sx={{ width: 12, height: 12, borderRadius: '50%', bgcolor: 'var(--color-success)' }} />
-            <Typography variant="body2" sx={{ fontSize: 13, color: 'var(--color-text-secondary)' }}>
+            <Box sx={{ width: 12, height: 12, borderRadius: '50%', bgcolor: 'var(--success-500)' }} />
+            <Typography variant="body2" sx={{ fontSize: 13, color: 'var(--text-secondary)' }}>
               Income
             </Typography>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <Box sx={{ width: 12, height: 12, borderRadius: '50%', bgcolor: 'var(--color-warning-accent)' }} />
-            <Typography variant="body2" sx={{ fontSize: 13, color: 'var(--color-text-secondary)' }}>
+            <Box sx={{ width: 12, height: 12, borderRadius: '50%', bgcolor: 'var(--warning-accent)' }} />
+            <Typography variant="body2" sx={{ fontSize: 13, color: 'var(--text-secondary)' }}>
               Expenses
             </Typography>
           </Box>
@@ -133,7 +133,7 @@ export default function WorkingCapitalChart() {
                 data: months,
                 tickLabelStyle: {
                   fontSize: 12,
-                  fill: 'var(--color-text-secondary)',
+                  fill: 'var(--text-secondary)',
                 },
               },
             ]}
@@ -141,23 +141,23 @@ export default function WorkingCapitalChart() {
               {
                 tickLabelStyle: {
                   fontSize: 12,
-                  fill: 'var(--color-text-secondary)',
+                  fill: 'var(--text-secondary)',
                 },
-                valueFormatter: (value) => `$${(value / 1000).toFixed(0)}k`,
+                valueFormatter: (value: number) => `$${(value / 1000).toFixed(0)}k`,
               },
             ]}
             series={[
               {
                 data: incomeData,
                 label: 'Income',
-                color: 'var(--color-success)',
+                color: 'var(--success-500)',
                 curve: 'catmullRom',
                 showMark: true,
               },
               {
                 data: expenseData,
                 label: 'Expenses',
-                color: 'var(--color-warning-accent)',
+                color: 'var(--warning-accent)',
                 curve: 'catmullRom',
                 showMark: true,
               },

@@ -11,11 +11,11 @@ export default function StatCard({
   currency,
   icon,
   trend,
-  bgcolor = 'var(--color-surface)',
+  bgcolor = 'var(--surface-base)',
 }: MuiStatCardProps) {
   const isDarkCard =
     typeof bgcolor === 'string' &&
-    (bgcolor.toLowerCase() === '#1b212d' || bgcolor.includes('color-surface-dark'));
+    (bgcolor.toLowerCase() === '#1b212d' || bgcolor.includes('surface-dark'));
   const formatValue = (val: number) => {
     return new Intl.NumberFormat('en-US', {
       minimumFractionDigits: 2,
@@ -39,10 +39,10 @@ export default function StatCard({
         height: '100%',
         bgcolor: bgcolor,
         borderRadius: 3,
-        boxShadow: '0 1px 3px 0 var(--color-shadow-soft)',
+        boxShadow: '0 1px 3px 0 var(--shadow-soft)',
         transition: 'all 0.2s',
         '&:hover': {
-          boxShadow: '0 4px 6px -1px var(--color-shadow-soft)',
+          boxShadow: '0 4px 6px -1px var(--shadow-soft)',
           transform: 'translateY(-2px)',
         },
       }}
@@ -53,7 +53,7 @@ export default function StatCard({
           <Typography
             variant="body2"
             sx={{
-              color: isDarkCard ? 'var(--color-text-inverted)' : 'var(--color-text-secondary)',
+              color: isDarkCard ? 'var(--text-inverted)' : 'var(--text-secondary)',
               fontSize: 13,
               fontWeight: 500,
             }}
@@ -65,11 +65,11 @@ export default function StatCard({
               width: 40,
               height: 40,
               borderRadius: 2,
-              bgcolor: isDarkCard ? 'var(--color-overlay-card-inverted)' : 'var(--color-overlay-card)',
+              bgcolor: isDarkCard ? 'var(--overlay-card-inverted)' : 'var(--overlay-card)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: isDarkCard ? 'var(--color-primary)' : 'var(--color-text-secondary)',
+              color: isDarkCard ? 'var(--brand-primary)' : 'var(--text-secondary)',
             }}
           >
             {icon}
@@ -81,7 +81,7 @@ export default function StatCard({
           variant="h4"
           sx={{
             fontWeight: 700,
-            color: isDarkCard ? 'var(--color-text-inverted)' : 'var(--color-text-primary)',
+            color: isDarkCard ? 'var(--text-inverted)' : 'var(--text-primary)',
             mb: 1,
           }}
         >
@@ -93,15 +93,15 @@ export default function StatCard({
         {trend && (
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
             {trend.direction === 'up' ? (
-              <TrendingUpIcon sx={{ fontSize: 16, color: 'var(--color-success)' }} />
+              <TrendingUpIcon sx={{ fontSize: 16, color: 'var(--success-500)' }} />
             ) : (
-              <TrendingDownIcon sx={{ fontSize: 16, color: 'var(--color-danger)' }} />
+              <TrendingDownIcon sx={{ fontSize: 16, color: 'var(--danger-500)' }} />
             )}
             <Typography
               variant="body2"
               sx={{
                 fontSize: 12,
-                color: trend.direction === 'up' ? 'var(--color-success)' : 'var(--color-danger)',
+                color: trend.direction === 'up' ? 'var(--success-500)' : 'var(--danger-500)',
                 fontWeight: 600,
               }}
             >
@@ -111,7 +111,7 @@ export default function StatCard({
               variant="body2"
               sx={{
                 fontSize: 12,
-                color: isDarkCard ? 'var(--color-text-inverted-muted)' : 'var(--color-text-secondary)',
+                color: isDarkCard ? 'var(--text-inverted-muted)' : 'var(--text-secondary)',
                 ml: 0.5,
               }}
             >

@@ -120,13 +120,13 @@ export default function SignInForm() {
       <button
         type="submit"
         disabled={isLoading}
-        className="w-full bg-[var(--color-primary)] text-gray-900 font-semibold py-3 px-4 rounded-lg mt-2 hover:bg-[var(--color-primary-hover)] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-primary)]"
+        className="w-full bg-[var(--brand-primary)] text-gray-900 font-semibold py-3 px-4 rounded-lg mt-2 hover:bg-[var(--brand-primary-hover)] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--brand-primary)]"
       >
         {isLoading ? 'Signing in...' : 'Sign In'}
       </button>
       <button
         type="button"
-        className="w-full bg-[var(--color-surface)] border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300 transition-all duration-200 flex items-center justify-center gap-3"
+        className="w-full bg-[var(--surface-base)] border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300 transition-all duration-200 flex items-center justify-center gap-3"
       >
         <GoogleIcon size={24} />
         Sign in with google

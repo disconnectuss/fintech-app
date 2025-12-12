@@ -70,14 +70,14 @@ export default function TopBar() {
       sx={{
         width: `calc(100% - ${DRAWER_WIDTH}px)`,
         ml: `${DRAWER_WIDTH}px`,
-        bgcolor: 'var(--color-surface-subtle)',
+        bgcolor: 'var(--surface-subtle)',
         boxShadow: 'none',
-        borderBottom: '1px solid var(--color-border)',
+        borderBottom: '1px solid var(--border-base)',
       }}
     >
       <Toolbar sx={{ justifyContent: 'space-between', px: 4 }}>
         {/* Page Title */}
-        <Typography variant="h5" sx={{ fontWeight: 700, color: 'var(--color-text-primary)' }}>
+        <Typography variant="h5" sx={{ fontWeight: 700, color: 'var(--text-primary)' }}>
           Dashboard
         </Typography>
 
@@ -88,10 +88,10 @@ export default function TopBar() {
             sx={{
               position: 'relative',
               borderRadius: 2,
-              backgroundColor: 'var(--color-surface)',
-              border: '1px solid var(--color-border)',
+              backgroundColor: 'var(--surface-base)',
+              border: '1px solid var(--border-base)',
               '&:hover': {
-                borderColor: 'var(--color-border-subtle)',
+                borderColor: 'var(--border-subtle)',
               },
               width: { xs: 40, sm: 200, md: 300 },
               transition: 'all 0.2s',
@@ -108,12 +108,12 @@ export default function TopBar() {
                 justifyContent: 'center',
               }}
             >
-              <SearchIcon sx={{ color: 'var(--color-text-secondary)' }} />
+              <SearchIcon sx={{ color: 'var(--text-secondary)' }} />
             </Box>
             <InputBase
               placeholder="Search..."
               sx={{
-                color: 'var(--color-text-primary)',
+                color: 'var(--text-primary)',
                 width: '100%',
                 '& .MuiInputBase-input': {
                   padding: '8px 8px 8px 48px',
@@ -126,16 +126,16 @@ export default function TopBar() {
           {/* Notifications */}
           <IconButton
             sx={{
-              bgcolor: 'var(--color-surface)',
-              border: '1px solid var(--color-border)',
+              bgcolor: 'var(--surface-base)',
+              border: '1px solid var(--border-base)',
               '&:hover': {
-                bgcolor: 'var(--color-surface)',
-                borderColor: 'var(--color-border-subtle)',
+                bgcolor: 'var(--surface-base)',
+                borderColor: 'var(--border-subtle)',
               },
             }}
           >
             <Badge badgeContent={3} color="error" variant="dot">
-              <NotificationsIcon sx={{ color: 'var(--color-text-secondary)' }} />
+              <NotificationsIcon sx={{ color: 'var(--text-secondary)' }} />
             </Badge>
           </IconButton>
 
@@ -147,13 +147,13 @@ export default function TopBar() {
               alignItems: 'center',
               gap: 1.5,
               cursor: 'pointer',
-              bgcolor: 'var(--color-surface)',
-              border: '1px solid var(--color-border)',
+              bgcolor: 'var(--surface-base)',
+              border: '1px solid var(--border-base)',
               borderRadius: 2,
               px: 1.5,
               py: 0.75,
               '&:hover': {
-                bgcolor: 'var(--color-surface-muted)',
+                bgcolor: 'var(--surface-muted)',
               },
             }}
           >
@@ -161,8 +161,8 @@ export default function TopBar() {
               sx={{
                 width: 32,
                 height: 32,
-                bgcolor: 'var(--color-primary)',
-                color: 'var(--color-text-primary)',
+                bgcolor: 'var(--brand-primary)',
+                color: 'var(--text-primary)',
                 fontSize: 14,
                 fontWeight: 600,
               }}
@@ -173,13 +173,13 @@ export default function TopBar() {
               variant="body2"
               sx={{
                 fontWeight: 600,
-                color: 'var(--color-text-primary)',
+                color: 'var(--text-primary)',
                 display: { xs: 'none', sm: 'block' },
               }}
             >
               {userName}
             </Typography>
-            <ArrowDownIcon sx={{ color: 'var(--color-text-secondary)', fontSize: 20 }} />
+            <ArrowDownIcon sx={{ color: 'var(--text-secondary)', fontSize: 20 }} />
           </Box>
 
           {/* Profile Menu */}
@@ -200,16 +200,16 @@ export default function TopBar() {
               '& .MuiPaper-root': {
                 borderRadius: 2,
                 minWidth: 220,
-                boxShadow: '0 4px 6px -1px var(--color-shadow-soft)',
+                boxShadow: '0 4px 6px -1px var(--shadow-soft)',
               },
             }}
           >
             {/* User Info Header */}
             <Box sx={{ px: 2, py: 1.5 }}>
-              <Typography variant="body2" sx={{ fontWeight: 600, color: 'var(--color-text-primary)' }}>
+              <Typography variant="body2" sx={{ fontWeight: 600, color: 'var(--text-primary)' }}>
                 {userName}
               </Typography>
-              <Typography variant="caption" sx={{ color: 'var(--color-text-secondary)' }}>
+              <Typography variant="caption" sx={{ color: 'var(--text-secondary)' }}>
                 {userEmail}
               </Typography>
             </Box>
@@ -229,9 +229,9 @@ export default function TopBar() {
               Settings
             </MenuItem>
             <Divider />
-            <MenuItem onClick={handleLogout} sx={{ color: 'var(--color-danger)' }}>
+            <MenuItem onClick={handleLogout} sx={{ color: 'var(--danger-500)' }}>
               <ListItemIcon>
-                <LogoutIcon fontSize="small" sx={{ color: 'var(--color-danger)' }} />
+                <LogoutIcon fontSize="small" sx={{ color: 'var(--danger-500)' }} />
               </ListItemIcon>
               Logout
             </MenuItem>

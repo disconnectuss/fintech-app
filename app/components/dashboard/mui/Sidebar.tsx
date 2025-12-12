@@ -61,7 +61,7 @@ export default function Sidebar() {
         '& .MuiDrawer-paper': {
           width: DRAWER_WIDTH,
           boxSizing: 'border-box',
-          borderRight: '1px solid var(--color-border)',
+          borderRight: '1px solid var(--border-base)',
         },
       }}
     >
@@ -71,16 +71,16 @@ export default function Sidebar() {
           sx={{
             width: 32,
             height: 32,
-            bgcolor: 'var(--color-surface-dark)',
+            bgcolor: 'var(--surface-dark)',
             borderRadius: 1,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
           }}
         >
-          <Typography sx={{ color: 'var(--color-text-inverted)', fontWeight: 700, fontSize: 18 }}>F</Typography>
+          <Typography sx={{ color: 'var(--text-inverted)', fontWeight: 700, fontSize: 18 }}>F</Typography>
         </Box>
-        <Typography variant="h6" sx={{ fontWeight: 700, color: 'var(--color-text-primary)' }}>
+        <Typography variant="h6" sx={{ fontWeight: 700, color: 'var(--text-primary)' }}>
           Fintech
         </Typography>
       </Box>
@@ -96,13 +96,13 @@ export default function Sidebar() {
                 onClick={() => handleNavigation(item.path)}
                 sx={{
                   borderRadius: 2,
-                  backgroundColor: isActive ? 'var(--color-primary)' : 'transparent',
-                  color: isActive ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
+                  backgroundColor: isActive ? 'var(--brand-primary)' : 'transparent',
+                  color: isActive ? 'var(--text-primary)' : 'var(--text-secondary)',
                   '&:hover': {
-                    backgroundColor: isActive ? 'var(--color-primary)' : 'var(--color-primary-soft)',
+                    backgroundColor: isActive ? 'var(--brand-primary)' : 'var(--brand-soft)',
                   },
                   '& .MuiListItemIcon-root': {
-                    color: isActive ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
+                    color: isActive ? 'var(--text-primary)' : 'var(--text-secondary)',
                     minWidth: 40,
                   },
                 }}
@@ -134,15 +134,15 @@ export default function Sidebar() {
                   onClick={() => handleNavigation(item.path)}
                   sx={{
                     borderRadius: 2,
-                    color: isActive ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
-                    backgroundColor: isActive ? 'var(--color-primary-soft-medium)' : 'transparent',
+                    color: isActive ? 'var(--text-primary)' : 'var(--text-secondary)',
+                    backgroundColor: isActive ? 'var(--brand-soft-md)' : 'transparent',
                     '&:hover': {
                       backgroundColor: isActive
-                        ? 'var(--color-primary-soft-strong)'
-                        : 'var(--color-overlay-light)',
+                        ? 'var(--brand-soft-strong)'
+                        : 'var(--overlay-light)',
                     },
                     '& .MuiListItemIcon-root': {
-                      color: isActive ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
+                      color: isActive ? 'var(--text-primary)' : 'var(--text-secondary)',
                       minWidth: 40,
                     },
                   }}
@@ -166,16 +166,16 @@ export default function Sidebar() {
               onClick={handleLogout}
               sx={{
                 borderRadius: 2,
-                color: 'var(--color-text-secondary)',
+                color: 'var(--text-secondary)',
                 '&:hover': {
-                  backgroundColor: 'var(--color-danger-soft)',
-                  color: 'var(--color-danger)',
+                  backgroundColor: 'var(--danger-soft)',
+                  color: 'var(--danger-500)',
                   '& .MuiListItemIcon-root': {
-                    color: 'var(--color-danger)',
+                    color: 'var(--danger-500)',
                   },
                 },
                 '& .MuiListItemIcon-root': {
-                  color: 'var(--color-text-secondary)',
+                  color: 'var(--text-secondary)',
                   minWidth: 40,
                 },
               }}
