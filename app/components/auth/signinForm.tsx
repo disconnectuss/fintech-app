@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { useAuth } from '@/app/lib/auth-context';
-import Image from 'next/image';
 import type { SignInFormErrors } from '@/app/lib/types';
+import { GoogleIcon } from '@/app/components/ui/icons';
 export default function SignInForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -122,14 +122,7 @@ export default function SignInForm() {
         type="button"
         className="w-full bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300 transition-all duration-200 flex items-center justify-center gap-3"
       >
-        <Image
-          src="/assets/icons/Google.svg"
-          alt="Sign In"
-          width={24}
-          height={24}
-          className="object-contain"
-          priority
-        />
+        <GoogleIcon size={24} />
         Sign in with google
       </button>
       {/* Sign Up Link */}

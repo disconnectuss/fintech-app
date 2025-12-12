@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { useAuth } from '@/app/lib/auth-context';
+import { GoogleIcon } from '@/app/components/ui/icons';
 import type { SignUpFormErrors } from '@/app/lib/types';
 export default function SignUpForm() {
   const [name, setName] = useState('');
@@ -183,12 +184,7 @@ export default function SignUpForm() {
         type="button"
         className="w-full bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300 transition-all duration-200 flex items-center justify-center gap-3"
       >
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path d="M19.8055 10.2292C19.8055 9.55152 19.7489 8.86677 19.6265 8.19604H10.2002V12.0492H15.6014C15.3773 13.2911 14.6571 14.3898 13.6025 15.0879V17.5866H16.8251C18.7179 15.8449 19.8055 13.2728 19.8055 10.2292Z" fill="#4285F4" />
-          <path d="M10.2002 20.0006C12.9505 20.0006 15.2715 19.1151 16.8251 17.5865L13.6025 15.0879C12.7031 15.6979 11.5428 16.0433 10.2002 16.0433C7.54067 16.0433 5.28162 14.2832 4.48282 11.9169H1.16602V14.4927C2.75632 17.8695 6.30849 20.0006 10.2002 20.0006Z" fill="#34A853" />
-          <path d="M4.48282 11.9169C4.0612 10.6751 4.0612 9.32598 4.48282 8.08421V5.50842H1.16602C-0.387702 8.71754 -0.387702 12.2837 1.16602 15.4928L4.48282 11.9169Z" fill="#FBBC04" />
-          <path d="M10.2002 3.95805C11.6189 3.93548 13.0003 4.47384 14.0395 5.45932L16.893 2.60582C15.1817 0.990821 12.9315 0.0813027 10.2002 0.105851C6.30849 0.105851 2.75632 2.23699 1.16602 5.50842L4.48282 8.08421C5.28162 5.71793 7.54067 3.95805 10.2002 3.95805Z" fill="#EA4335" />
-        </svg>
+        <GoogleIcon size={20} />
         Sign up with google
       </button>
       {/* Sign In Link */}
