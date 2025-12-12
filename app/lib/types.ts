@@ -90,10 +90,10 @@ export interface Transaction {
 // Credit/Debit Card (matching API response from /financial/wallet)
 export interface Card {
   id: string;
-  name: string; // Card name (e.g., "Maglo Gold Card")
+  name: string; // Card name (e.g., "Fintech Gold Card")
   type: 'credit' | 'debit';
   cardNumber: string; // Full number like "5495 7381 3759 2321"
-  bank: string; // Bank name with brand (e.g., "Maglo | Universal Bank")
+  bank: string; // Bank name with brand (e.g., "Fintech | Universal Bank")
   network: 'Visa' | 'Mastercard' | 'Amex';
   expiryMonth: number;
   expiryYear: number;

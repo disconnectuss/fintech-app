@@ -48,6 +48,7 @@ export default function TopBar({ onMenuClick }: TopBarProps) {
   const [searchAnchorEl, setSearchAnchorEl] = React.useState<null | HTMLElement>(null);
   const [isSearching, setIsSearching] = React.useState(false);
   const searchBoxRef = React.useRef<HTMLDivElement>(null);
+  const debounceTimerRef = React.useRef<NodeJS.Timeout | null>(null);
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -62,10 +63,8 @@ export default function TopBar({ onMenuClick }: TopBarProps) {
     signOut();
   };
 
-  const handleSearchChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setSearchValue(value);
-
+  // Debounced search function
+  const performSearch = React.useCallback(async (value: string) => {
     if (value.trim().length > 1) {
       setIsSearching(true);
       setSearchAnchorEl(searchBoxRef.current);
@@ -82,7 +81,37 @@ export default function TopBar({ onMenuClick }: TopBarProps) {
       setSearchResults([]);
       setSearchAnchorEl(null);
     }
+  }, []);
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setSearchValue(value);
+
+    // Clear previous timer
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+    }
+
+    // Set new timer for debounced search
+    if (value.trim().length > 1) {
+      debounceTimerRef.current = setTimeout(() => {
+        performSearch(value);
+      }, 300); // 300ms debounce delay
+    } else {
+      setSearchResults([]);
+      setSearchAnchorEl(null);
+      setIsSearching(false);
+    }
   };
+
+  // Cleanup timer on unmount
+  React.useEffect(() => {
+    return () => {
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current);
+      }
+    };
+  }, []);
 
   const handleSearchSubmit = (event: React.FormEvent) => {
     event.preventDefault();

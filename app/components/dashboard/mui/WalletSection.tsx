@@ -59,6 +59,7 @@ export default function WalletSection() {
         <Box sx={{ position: 'relative', height: { xs: 280, sm: 310 } }}>
           {cards.slice(0, 2).reverse().map((card, index) => {
             const isTopCard = index === 0;
+            const bankLabel = card.bank ? card.bank.replace(/maglo/gi, 'Fintech') : '';
             return (
               <Box
                 key={card.id}
@@ -94,7 +95,7 @@ export default function WalletSection() {
                     {card.name}
                   </Typography>
                   <Typography variant="body2" sx={{ fontWeight: 600, fontSize: { xs: 10, sm: 11 } }}>
-                    {card.bank}
+                    {bankLabel}
                   </Typography>
                 </Box>
                 <WifiIcon sx={{ fontSize: { xs: 20, sm: 24 }, transform: 'rotate(90deg)', opacity: 0.6 }} />

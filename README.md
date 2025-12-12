@@ -6,9 +6,3 @@ First, run the development server:
 
 ```bash
 npm run dev
-
-## Tech Stack
-
-## Tailwind colors 
-- text-1: [#1B212D]
-- text-3: [#78778B]
