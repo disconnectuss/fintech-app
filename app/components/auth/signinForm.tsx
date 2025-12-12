@@ -1,45 +1,38 @@
 'use client';
-import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import Link from 'next/link';
+import Image from 'next/image';
 import toast from 'react-hot-toast';
 import { isAxiosError } from 'axios';
 import { useAuth } from '@/app/lib/auth-context';
-import type { SignInFormErrors } from '@/app/lib/types';
 import { GoogleIcon } from '@/app/components/ui/icons';
+
+type SignInFormData = {
+  email: string;
+  password: string;
+};
 
 type ApiErrorResponse = {
   message?: string;
 };
+
 export default function SignInForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState<SignInFormErrors>({});
-  const [isLoading, setIsLoading] = useState(false);
   const { signIn } = useAuth();
-  const validateForm = (): boolean => {
-    const newErrors: SignInFormErrors = {};
-    if (!email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      newErrors.email = 'Please enter a valid email address';
-    }
-    if (!password) {
-      newErrors.password = 'Password is required';
-    } else if (password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
-    }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validateForm()) {
-      toast.error('Please fix the errors in the form');
-      return;
-    }
-    setIsLoading(true);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<SignInFormData>({
+    mode: 'onBlur',
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
+
+  const onSubmit = async (data: SignInFormData) => {
     try {
-      await signIn(email, password);
+      await signIn(data.email, data.password);
       toast.success('Successfully signed in!');
     } catch (error: unknown) {
       let errorMessage = 'Failed to sign in. Please try again.';
@@ -51,90 +44,91 @@ export default function SignInForm() {
       }
 
       toast.error(errorMessage);
-    } finally {
-      setIsLoading(false);
     }
   };
   return (
-    <form onSubmit={handleSubmit} className="space-y-6" style={{ fontFamily: 'var(--font-kumbh-sans)' }}>
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6" style={{ fontFamily: 'var(--font-kumbh-sans)' }}>
       <div className="space-y-2">
-        <label htmlFor="email" className="block text-sm font-semibold text-[#1b1e2b]">
+        <label htmlFor="email" className="block text-sm font-semibold text-(--text-primary)">
           Email
         </label>
         <input
           id="email"
-          name="email"
           type="email"
           autoComplete="email"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-            if (errors.email) {
-              setErrors({ ...errors, email: undefined });
-            }
-          }}
-          disabled={isLoading}
-          className={`w-full px-5 py-4 rounded-2xl bg-white text-[16px] font-normal shadow-[0_12px_30px_rgba(16,24,40,0.08)] border ${errors.email
-            ? 'border-red-500'
-            : 'border-transparent'
-            } text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary)]/40 disabled:bg-gray-50 disabled:cursor-not-allowed transition-all`}
+          {...register('email', {
+            required: 'Email is required',
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: 'Please enter a valid email address',
+            },
+          })}
+          disabled={isSubmitting}
+          className={`w-full sm:max-w-[404px] h-11 sm:h-12 px-4 sm:px-5 py-3 sm:py-[15px] rounded-[10px] bg-white text-base sm:text-[16px] font-normal border ${
+            errors.email ? 'border-red-500' : 'border-[#F2F2F2]'
+          } text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-(--brand-primary)/40 disabled:bg-gray-50 disabled:cursor-not-allowed transition-all`}
           placeholder="example@gmail.com"
         />
         {errors.email && (
-          <p className="mt-1.5 text-sm text-red-600">{errors.email}</p>
+          <p className="mt-1.5 text-sm text-red-600">{errors.email.message}</p>
         )}
       </div>
       <div className="space-y-2">
-        <label htmlFor="password" className="block text-sm font-semibold text-[#1b1e2b]">
+        <label htmlFor="password" className="block text-sm font-semibold text-(--text-primary)">
           Password
         </label>
         <input
           id="password"
-          name="password"
           type="password"
           autoComplete="current-password"
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-            if (errors.password) {
-              setErrors({ ...errors, password: undefined });
-            }
-          }}
-          disabled={isLoading}
-          className={`w-full px-5 py-4 rounded-2xl bg-white text-[16px] font-normal shadow-[0_12px_30px_rgba(16,24,40,0.08)] border ${errors.password
-            ? 'border-red-500'
-            : 'border-transparent'
-            } text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary)]/40 disabled:bg-gray-50 disabled:cursor-not-allowed transition-all`}
+          {...register('password', {
+            required: 'Password is required',
+            minLength: {
+              value: 6,
+              message: 'Password must be at least 6 characters',
+            },
+          })}
+          disabled={isSubmitting}
+          className={`w-full sm:max-w-[404px] h-11 sm:h-12 px-4 sm:px-5 py-3 sm:py-[15px] rounded-[10px] bg-white text-base sm:text-[16px] font-normal border ${
+            errors.password ? 'border-red-500' : 'border-[#F2F2F2]'
+          } text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-(--brand-primary)/40 disabled:bg-gray-50 disabled:cursor-not-allowed transition-all`}
           placeholder="••••••••"
         />
         {errors.password && (
-          <p className="mt-1.5 text-sm text-red-600">{errors.password}</p>
+          <p className="mt-1.5 text-sm text-red-600">{errors.password.message}</p>
         )}
       </div>
-      <div className="space-y-7">
+      <div className="space-y-4 sm:space-y-7">
         <button
           type="submit"
-          disabled={isLoading}
-          className="w-full bg-[var(--brand-primary)] text-[#111827] font-semibold py-4 px-5 text-[16px] rounded-2xl shadow-[0_20px_40px_rgba(138,204,31,0.4)] hover:bg-[var(--brand-primary-hover)] transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--brand-primary)]"
+          disabled={isSubmitting}
+          className="w-full sm:max-w-[404px] mt-4 sm:mt-6! mb-4! h-11 sm:h-12 bg-(--brand-primary) text-[#111827] font-semibold px-4 sm:px-5 py-3 sm:py-[15px] text-base sm:text-[16px] rounded-[10px] hover:bg-(--brand-primary-hover) transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-(--brand-primary) disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          {isLoading ? 'Signing in...' : 'Sign In'}
+          {isSubmitting ? 'Signing in...' : 'Sign In'}
         </button>
         <button
           type="button"
-          className="w-full bg-white border border-[#e4e6ed] hover:bg-gray-50 text-gray-700 font-medium py-4 px-5 rounded-2xl focus:outline-none focus:ring-2 focus:ring-gray-200 transition-all duration-200 flex items-center justify-center gap-3 text-[16px] shadow-[0_12px_30px_rgba(15,23,42,0.05)]"
+          className="w-full sm:max-w-[404px] h-11 sm:h-12 bg-white border border-[#F2F2F2] hover:bg-gray-50 text-gray-700 font-medium px-4 sm:px-5 py-3 sm:py-[15px] rounded-[10px] focus:outline-none focus:ring-2 focus:ring-gray-200 transition-all duration-200 flex items-center justify-center gap-3 text-base sm:text-[16px]"
         >
           <GoogleIcon size={24} />
           Sign in with google
         </button>
       </div>
       {/* Sign Up Link */}
-      <div className="pt-2 text-center">
-        <p className="text-sm text-gray-600">
+      <div className="w-full max-w-[404px] mt-4! text-center">
+        <p className="text-sm text-(--text-secondary)">
           Don&apos;t have an account?{' '}
-          <Link href="/auth/sign-up" className="font-semibold text-gray-900 hover:text-gray-700 transition-colors relative inline-flex items-center">
+          <Link href="/auth/sign-up" className="font-semibold text-(--text-primary) hover:text-gray-700 transition-colors relative inline-flex items-center">
             <span className="relative">
               Sign up
-              <span className="absolute left-0 bottom-0 w-full h-1 bg-[var(--brand-primary)] opacity-70 translate-y-1 rounded-full" />
+              <span className="absolute left-0 bottom-0 w-full translate-y-1 flex justify-center">
+                <Image
+                  src="/assets/images/Vector.png"
+                  alt="Vector decoration"
+                  width={60}
+                  height={8}
+                />
+              </span>
             </span>
           </Link>
         </p>

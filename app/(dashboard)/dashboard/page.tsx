@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { Box, Toolbar, Grid } from '@mui/material';
 import {
   AccountBalance as BalanceIcon,
@@ -9,13 +10,37 @@ import {
 import Sidebar from '@/app/components/dashboard/mui/Sidebar';
 import TopBar from '@/app/components/dashboard/mui/TopBar';
 import StatCard from '@/app/components/dashboard/mui/StatCard';
-import WorkingCapitalChart from '@/app/components/dashboard/mui/WorkingCapitalChart';
-import RecentTransactions from '@/app/components/dashboard/mui/RecentTransactions';
-import WalletSection from '@/app/components/dashboard/mui/WalletSection';
-import ScheduledTransfers from '@/app/components/dashboard/mui/ScheduledTransfers';
 import AuthGuard from '@/app/components/auth/AuthGuard';
 import ErrorBoundary from '@/app/components/ui/ErrorBoundary';
 import { useDashboardSummary } from '@/app/lib/hooks/use-dashboard';
+import { ChartSkeleton, TransactionListSkeleton, CardSkeleton, ScheduledTransferSkeleton } from '@/app/components/ui/SkeletonLoaders';
+
+// Dynamic imports for heavy components
+const WorkingCapitalChart = dynamic(() => import('@/app/components/dashboard/mui/WorkingCapitalChart'), {
+  loading: () => <ChartSkeleton />,
+  ssr: false,
+});
+
+const RecentTransactions = dynamic(() => import('@/app/components/dashboard/mui/RecentTransactions'), {
+  loading: () => <TransactionListSkeleton />,
+  ssr: false,
+});
+
+const WalletSection = dynamic(() => import('@/app/components/dashboard/mui/WalletSection'), {
+  loading: () => <CardSkeleton />,
+  ssr: false,
+});
+
+const ScheduledTransfers = dynamic(() => import('@/app/components/dashboard/mui/ScheduledTransfers'), {
+  loading: () => (
+    <div className="space-y-3">
+      <ScheduledTransferSkeleton />
+      <ScheduledTransferSkeleton />
+    </div>
+  ),
+  ssr: false,
+});
+
 const DRAWER_WIDTH = 240;
 export default function DashboardPage() {
   const { data: summary } = useDashboardSummary();

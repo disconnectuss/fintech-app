@@ -21,8 +21,11 @@ export default function AuthGuard({
   }, [isAuthenticated, isLoading, requireAuth, redirectTo, router]);
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-lime-500"></div>
+      <div className="flex items-center justify-center min-h-screen bg-white">
+        <div className="flex flex-col items-center gap-4">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--brand-primary)]"></div>
+          <p className="text-sm text-(--text-secondary)">Loading...</p>
+        </div>
       </div>
     );
   }
