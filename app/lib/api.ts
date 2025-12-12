@@ -1,4 +1,6 @@
 import axios from 'axios';
+import type { Transaction, ScheduledTransfer, Card, SearchResult } from './types';
+
 const API_BASE_URL = 'https://case.nodelabs.dev/api';
 
 export const apiClient = axios.create({
@@ -109,10 +111,10 @@ export const searchAPI = {
     ]);
 
     const searchTerm = query.toLowerCase();
-    const results: any[] = [];
+    const results: SearchResult[] = [];
 
     // Search in transactions
-    transactions.forEach((transaction: any) => {
+    transactions.forEach((transaction: Transaction) => {
       if (
         transaction.name?.toLowerCase().includes(searchTerm) ||
         transaction.business?.toLowerCase().includes(searchTerm) ||
@@ -132,7 +134,7 @@ export const searchAPI = {
     });
 
     // Search in transfers
-    transfers.forEach((transfer: any) => {
+    transfers.forEach((transfer: ScheduledTransfer) => {
       if (transfer.name?.toLowerCase().includes(searchTerm)) {
         results.push({
           id: transfer.id,
@@ -148,7 +150,7 @@ export const searchAPI = {
     });
 
     // Search in cards
-    cards.forEach((card: any) => {
+    cards.forEach((card: Card) => {
       if (
         card.name?.toLowerCase().includes(searchTerm) ||
         card.bank?.toLowerCase().includes(searchTerm) ||

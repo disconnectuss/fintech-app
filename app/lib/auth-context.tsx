@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { jwtDecode } from 'jwt-decode';
 import toast from 'react-hot-toast';
@@ -10,7 +10,7 @@ import type { AuthContextType, User } from './types';
 interface JwtPayload {
   exp: number;
   iat: number;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 const isTokenExpired = (token: string): boolean => {
