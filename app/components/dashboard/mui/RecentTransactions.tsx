@@ -62,7 +62,7 @@ export default function RecentTransactions() {
             href="/transactions"
             sx={{
               fontSize: 13,
-              color: '#3b82f6',
+              color: 'var(--color-info)',
               textDecoration: 'none',
               fontWeight: 600,
               cursor: 'pointer',
@@ -80,21 +80,21 @@ export default function RecentTransactions() {
           <Table sx={{ minWidth: 650 }}>
             <TableHead>
               <TableRow>
-                <TableCell sx={{ color: '#78778B', fontWeight: 600, fontSize: 12, textTransform: 'uppercase' }}>
+                <TableCell sx={{ color: 'var(--color-text-secondary)', fontWeight: 600, fontSize: 12, textTransform: 'uppercase' }}>
                   NAME/BUSINESS
                 </TableCell>
-                <TableCell sx={{ color: '#78778B', fontWeight: 600, fontSize: 12, textTransform: 'uppercase' }}>
+                <TableCell sx={{ color: 'var(--color-text-secondary)', fontWeight: 600, fontSize: 12, textTransform: 'uppercase' }}>
                   TYPE
                 </TableCell>
                 <TableCell
                   align="right"
-                  sx={{ color: '#78778B', fontWeight: 600, fontSize: 12, textTransform: 'uppercase' }}
+                  sx={{ color: 'var(--color-text-secondary)', fontWeight: 600, fontSize: 12, textTransform: 'uppercase' }}
                 >
                   AMOUNT
                 </TableCell>
                 <TableCell
                   align="right"
-                  sx={{ color: '#78778B', fontWeight: 600, fontSize: 12, textTransform: 'uppercase' }}
+                  sx={{ color: 'var(--color-text-secondary)', fontWeight: 600, fontSize: 12, textTransform: 'uppercase' }}
                 >
                   DATE
                 </TableCell>
@@ -110,7 +110,7 @@ export default function RecentTransactions() {
                     key={transaction.id}
                     sx={{
                       '&:last-child td, &:last-child th': { border: 0 },
-                      '&:hover': { bgcolor: '#F9FAFB' },
+                      '&:hover': { bgcolor: 'var(--color-surface-muted)' },
                     }}
                   >
                     {/* Name/Business */}
@@ -122,16 +122,16 @@ export default function RecentTransactions() {
                           sx={{
                             width: 40,
                             height: 40,
-                            bgcolor: '#F3F4F6',
+                            bgcolor: 'var(--color-surface-soft)',
                           }}
                         >
                           {transaction.business?.[0] || 'T'}
                         </Avatar>
                         <Box>
-                          <Typography variant="body2" sx={{ fontWeight: 600, color: '#1B212D' }}>
+                          <Typography variant="body2" sx={{ fontWeight: 600, color: 'var(--color-text-primary)' }}>
                             {transaction.name || transaction.title}
                           </Typography>
-                          <Typography variant="caption" sx={{ color: '#78778B' }}>
+                          <Typography variant="caption" sx={{ color: 'var(--color-text-secondary)' }}>
                             {transaction.business}
                           </Typography>
                         </Box>
@@ -144,8 +144,8 @@ export default function RecentTransactions() {
                         label={transaction.type || transaction.category || 'Other'}
                         size="small"
                         sx={{
-                          bgcolor: '#F3F4F6',
-                          color: '#78778B',
+                          bgcolor: 'var(--color-surface-soft)',
+                          color: 'var(--color-text-secondary)',
                           fontWeight: 500,
                           fontSize: 12,
                           textTransform: 'capitalize',
@@ -159,7 +159,7 @@ export default function RecentTransactions() {
                         variant="body2"
                         sx={{
                           fontWeight: 700,
-                          color: isExpense ? '#1B212D' : '#4ade80',
+                          color: isExpense ? 'var(--color-text-primary)' : 'var(--color-success)',
                         }}
                       >
                         {isExpense ? '-' : '+'}${displayAmount.toLocaleString()}
@@ -168,7 +168,7 @@ export default function RecentTransactions() {
 
                     {/* Date */}
                     <TableCell align="right">
-                      <Typography variant="body2" sx={{ color: '#78778B', fontSize: 13 }}>
+                      <Typography variant="body2" sx={{ color: 'var(--color-text-secondary)', fontSize: 13 }}>
                         {formatRelativeDate(transaction.date)}
                       </Typography>
                     </TableCell>

@@ -63,11 +63,11 @@ export default function WalletSection() {
               sx={{
                 background:
                   index === 0
-                    ? 'linear-gradient(135deg, #1B212D 0%, #2D3748 100%)'
-                    : 'linear-gradient(135deg, #f59e0b 0%, #f97316 100%)',
+                    ? 'linear-gradient(135deg, var(--color-surface-dark) 0%, var(--color-surface-dark-alt) 100%)'
+                    : 'linear-gradient(135deg, var(--color-warning) 0%, var(--color-warning-accent) 100%)',
                 borderRadius: 3,
                 p: 2.5,
-                color: 'white',
+                color: 'var(--color-text-inverted)',
                 position: 'relative',
                 overflow: 'hidden',
                 minHeight: 160,
@@ -92,7 +92,7 @@ export default function WalletSection() {
                   width: 40,
                   height: 30,
                   borderRadius: 1,
-                  border: '1.5px solid rgba(255,255,255,0.3)',
+                  border: '1.5px solid var(--color-overlay-chip)',
                   mb: 2,
                 }}
               />
@@ -118,7 +118,7 @@ export default function WalletSection() {
                 {card.network === 'Visa' && (
                   <Box
                     sx={{
-                      bgcolor: 'white',
+                      bgcolor: 'var(--color-surface)',
                       borderRadius: 1,
                       px: 1,
                       py: 0.5,
@@ -126,18 +126,18 @@ export default function WalletSection() {
                       alignItems: 'center',
                     }}
                   >
-                    <Typography sx={{ color: '#1434CB', fontWeight: 700, fontSize: 16 }}>VISA</Typography>
+                    <Typography sx={{ color: 'var(--color-visa)', fontWeight: 700, fontSize: 16 }}>VISA</Typography>
                   </Box>
                 )}
                 {card.network === 'Mastercard' && (
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: -0.5 }}>
-                    <Box sx={{ width: 24, height: 24, borderRadius: '50%', bgcolor: '#EB001B' }} />
+                    <Box sx={{ width: 24, height: 24, borderRadius: '50%', bgcolor: 'var(--color-mastercard-red)' }} />
                     <Box
                       sx={{
                         width: 24,
                         height: 24,
                         borderRadius: '50%',
-                        bgcolor: '#F79E1B',
+                        bgcolor: 'var(--color-mastercard-orange)',
                         ml: -1.5,
                       }}
                     />
@@ -153,15 +153,15 @@ export default function WalletSection() {
               sx={{
                 p: 2,
                 textAlign: 'center',
-                border: '1px dashed #E5E7EB',
+                border: '1px dashed var(--color-border-dashed)',
                 borderRadius: 2,
                 cursor: 'pointer',
                 '&:hover': {
-                  bgcolor: '#F9FAFB',
+                  bgcolor: 'var(--color-surface-muted)',
                 },
               }}
             >
-              <Typography variant="body2" sx={{ color: '#78778B' }}>
+              <Typography variant="body2" sx={{ color: 'var(--color-text-secondary)' }}>
                 +{cards.length - 2} more cards
               </Typography>
             </Box>

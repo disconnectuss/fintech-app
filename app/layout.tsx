@@ -36,21 +36,21 @@ export default function RootLayout({
                 toastOptions={{
                   duration: 4000,
                   style: {
-                    background: '#363636',
-                    color: '#fff',
+                    background: 'var(--color-toast-bg)',
+                    color: 'var(--color-text-inverted)',
                   },
                   success: {
                     duration: 3000,
                     iconTheme: {
-                      primary: '#4ade80',
-                      secondary: '#fff',
+                      primary: 'var(--color-success)',
+                      secondary: 'var(--color-text-inverted)',
                     },
                   },
                   error: {
                     duration: 4000,
                     iconTheme: {
-                      primary: '#ef4444',
-                      secondary: '#fff',
+                      primary: 'var(--color-danger)',
+                      secondary: 'var(--color-text-inverted)',
                     },
                   },
                 }}

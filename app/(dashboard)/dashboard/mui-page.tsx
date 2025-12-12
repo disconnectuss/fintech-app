@@ -22,7 +22,7 @@ export default function MuiDashboardPage() {
   return (
     <AuthGuard requireAuth>
       <ErrorBoundary>
-        <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: '#F5F5F5' }}>
+        <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: 'var(--color-surface-subtle)' }}>
           {/* Sidebar */}
           <Sidebar />
           {/* Main Content */}
@@ -48,7 +48,7 @@ export default function MuiDashboardPage() {
                     value={summary?.totalBalance?.amount || 5240.21}
                     currency={summary?.totalBalance?.currency || 'USD'}
                     icon={<BalanceIcon />}
-                    bgcolor="#1B212D"
+                    bgcolor="var(--color-surface-dark)"
                     trend={
                       summary?.totalBalance?.change
                         ? {

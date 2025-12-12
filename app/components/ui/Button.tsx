@@ -11,8 +11,8 @@ export default function Button({
   ...props
 }: ButtonProps) {
   const variantClasses = {
-    primary: 'bg-[#C8EE44] text-gray-900 hover:bg-[#b8de34] font-semibold',
-    secondary: 'bg-gray-900 text-white hover:bg-gray-800 font-semibold',
+    primary: 'bg-[var(--color-primary)] text-gray-900 hover:bg-[var(--color-primary-hover)] font-semibold',
+    secondary: 'bg-[var(--color-surface-dark)] text-white hover:bg-[var(--color-surface-dark-hover)] font-semibold',
     outline:
       'bg-transparent border-2 border-gray-300 text-gray-700 hover:border-gray-400 font-medium',
     ghost: 'bg-transparent text-gray-700 hover:bg-gray-100 font-medium',
@@ -26,7 +26,7 @@ export default function Button({
   return (
     <button
       className={clsx(
-        'inline-flex items-center justify-center rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#C8EE44]',
+        'inline-flex items-center justify-center rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-primary)]',
         variantClasses[variant],
         sizeClasses[size],
         isDisabled && 'opacity-50 cursor-not-allowed',

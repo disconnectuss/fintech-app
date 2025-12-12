@@ -60,12 +60,12 @@ export default function WorkingCapitalChart() {
               sx={{
                 textTransform: 'none',
                 fontSize: 12,
-                bgcolor: selectedPeriod === 'week' ? '#1B212D' : 'transparent',
-                color: selectedPeriod === 'week' ? 'white' : '#78778B',
-                borderColor: '#E5E7EB',
+                bgcolor: selectedPeriod === 'week' ? 'var(--color-surface-dark)' : 'transparent',
+                color: selectedPeriod === 'week' ? 'var(--color-text-inverted)' : 'var(--color-text-secondary)',
+                borderColor: 'var(--color-border)',
                 '&:hover': {
-                  bgcolor: selectedPeriod === 'week' ? '#1B212D' : '#F9FAFB',
-                  borderColor: '#E5E7EB',
+                  bgcolor: selectedPeriod === 'week' ? 'var(--color-surface-dark)' : 'var(--color-surface-muted)',
+                  borderColor: 'var(--color-border)',
                 },
               }}
             >
@@ -77,12 +77,12 @@ export default function WorkingCapitalChart() {
               sx={{
                 textTransform: 'none',
                 fontSize: 12,
-                bgcolor: selectedPeriod === 'month' ? '#1B212D' : 'transparent',
-                color: selectedPeriod === 'month' ? 'white' : '#78778B',
-                borderColor: '#E5E7EB',
+                bgcolor: selectedPeriod === 'month' ? 'var(--color-surface-dark)' : 'transparent',
+                color: selectedPeriod === 'month' ? 'var(--color-text-inverted)' : 'var(--color-text-secondary)',
+                borderColor: 'var(--color-border)',
                 '&:hover': {
-                  bgcolor: selectedPeriod === 'month' ? '#1B212D' : '#F9FAFB',
-                  borderColor: '#E5E7EB',
+                  bgcolor: selectedPeriod === 'month' ? 'var(--color-surface-dark)' : 'var(--color-surface-muted)',
+                  borderColor: 'var(--color-border)',
                 },
               }}
             >
@@ -94,12 +94,12 @@ export default function WorkingCapitalChart() {
               sx={{
                 textTransform: 'none',
                 fontSize: 12,
-                bgcolor: selectedPeriod === 'year' ? '#1B212D' : 'transparent',
-                color: selectedPeriod === 'year' ? 'white' : '#78778B',
-                borderColor: '#E5E7EB',
+                bgcolor: selectedPeriod === 'year' ? 'var(--color-surface-dark)' : 'transparent',
+                color: selectedPeriod === 'year' ? 'var(--color-text-inverted)' : 'var(--color-text-secondary)',
+                borderColor: 'var(--color-border)',
                 '&:hover': {
-                  bgcolor: selectedPeriod === 'year' ? '#1B212D' : '#F9FAFB',
-                  borderColor: '#E5E7EB',
+                  bgcolor: selectedPeriod === 'year' ? 'var(--color-surface-dark)' : 'var(--color-surface-muted)',
+                  borderColor: 'var(--color-border)',
                 },
               }}
             >
@@ -111,14 +111,14 @@ export default function WorkingCapitalChart() {
         {/* Legend */}
         <Box sx={{ display: 'flex', gap: 3, mb: 2 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <Box sx={{ width: 12, height: 12, borderRadius: '50%', bgcolor: '#4ade80' }} />
-            <Typography variant="body2" sx={{ fontSize: 13, color: '#78778B' }}>
+            <Box sx={{ width: 12, height: 12, borderRadius: '50%', bgcolor: 'var(--color-success)' }} />
+            <Typography variant="body2" sx={{ fontSize: 13, color: 'var(--color-text-secondary)' }}>
               Income
             </Typography>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <Box sx={{ width: 12, height: 12, borderRadius: '50%', bgcolor: '#f97316' }} />
-            <Typography variant="body2" sx={{ fontSize: 13, color: '#78778B' }}>
+            <Box sx={{ width: 12, height: 12, borderRadius: '50%', bgcolor: 'var(--color-warning-accent)' }} />
+            <Typography variant="body2" sx={{ fontSize: 13, color: 'var(--color-text-secondary)' }}>
               Expenses
             </Typography>
           </Box>
@@ -133,7 +133,7 @@ export default function WorkingCapitalChart() {
                 data: months,
                 tickLabelStyle: {
                   fontSize: 12,
-                  fill: '#78778B',
+                  fill: 'var(--color-text-secondary)',
                 },
               },
             ]}
@@ -141,7 +141,7 @@ export default function WorkingCapitalChart() {
               {
                 tickLabelStyle: {
                   fontSize: 12,
-                  fill: '#78778B',
+                  fill: 'var(--color-text-secondary)',
                 },
                 valueFormatter: (value) => `$${(value / 1000).toFixed(0)}k`,
               },
@@ -150,14 +150,14 @@ export default function WorkingCapitalChart() {
               {
                 data: incomeData,
                 label: 'Income',
-                color: '#4ade80',
+                color: 'var(--color-success)',
                 curve: 'catmullRom',
                 showMark: true,
               },
               {
                 data: expenseData,
                 label: 'Expenses',
-                color: '#f97316',
+                color: 'var(--color-warning-accent)',
                 curve: 'catmullRom',
                 showMark: true,
               },

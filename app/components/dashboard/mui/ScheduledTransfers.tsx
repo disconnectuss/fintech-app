@@ -59,7 +59,7 @@ export default function ScheduledTransfers() {
             href="/transfers"
             sx={{
               fontSize: 13,
-              color: '#3b82f6',
+              color: 'var(--color-info)',
               textDecoration: 'none',
               fontWeight: 600,
               cursor: 'pointer',
@@ -85,9 +85,9 @@ export default function ScheduledTransfers() {
                 sx={{
                   px: 0,
                   py: 2,
-                  borderBottom: index === transfers.length - 1 ? 'none' : '1px solid #F3F4F6',
+                  borderBottom: index === transfers.length - 1 ? 'none' : '1px solid var(--color-surface-soft)',
                   '&:hover': {
-                    bgcolor: '#F9FAFB',
+                    bgcolor: 'var(--color-surface-muted)',
                     borderRadius: 2,
                     px: 2,
                     mx: -2,
@@ -101,8 +101,8 @@ export default function ScheduledTransfers() {
                     sx={{
                       width: 40,
                       height: 40,
-                      bgcolor: '#C8EE44',
-                      color: '#1B212D',
+                      bgcolor: 'var(--color-primary)',
+                      color: 'var(--color-text-primary)',
                       fontWeight: 600,
                       fontSize: 14,
                     }}
@@ -117,12 +117,12 @@ export default function ScheduledTransfers() {
                 </ListItemAvatar>
                 <ListItemText
                   primary={
-                    <Typography variant="body2" sx={{ fontWeight: 600, color: '#1B212D' }}>
+                    <Typography variant="body2" sx={{ fontWeight: 600, color: 'var(--color-text-primary)' }}>
                       {recipientName}
                     </Typography>
                   }
                   secondary={
-                    <Typography variant="caption" sx={{ color: '#78778B' }}>
+                    <Typography variant="caption" sx={{ color: 'var(--color-text-secondary)' }}>
                       {formatDateTime(scheduledDate)}
                     </Typography>
                   }
@@ -131,7 +131,7 @@ export default function ScheduledTransfers() {
                   variant="body2"
                   sx={{
                     fontWeight: 700,
-                    color: '#1B212D',
+                    color: 'var(--color-text-primary)',
                     ml: 2,
                   }}
                 >

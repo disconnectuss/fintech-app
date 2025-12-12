@@ -3,12 +3,53 @@
 @theme {
   --font-sans: var(--font-kumbh-sans), system-ui, -apple-system, sans-serif;
 
-  /* Custom colors */
-  --color-primary: #C8EE44;
+  /* Core brand palette */
+  --color-primary: #c8ee44;
   --color-primary-hover: #b8de34;
+  --color-primary-soft: rgba(200, 238, 68, 0.1);
+  --color-primary-soft-medium: rgba(200, 238, 68, 0.15);
+  --color-primary-soft-strong: rgba(200, 238, 68, 0.2);
+  --color-success: #4ade80;
+  --color-danger: #ef4444;
+  --color-danger-soft: rgba(239, 68, 68, 0.1);
+  --color-info: #3b82f6;
+  --color-warning: #f59e0b;
+  --color-warning-accent: #f97316;
+
+  /* Text & surfaces */
+  --color-text-primary: #1b212d;
+  --color-text-secondary: #78778b;
+  --color-text-muted: #9ca3af;
+  --color-text-inverted: #ffffff;
+  --color-text-inverted-muted: rgba(255, 255, 255, 0.6);
+  --color-surface: #ffffff;
+  --color-surface-muted: #f9fafb;
+  --color-surface-soft: #f3f4f6;
+  --color-surface-subtle: #f5f5f5;
+  --color-surface-dark: #1b212d;
+  --color-surface-dark-alt: #2d3748;
+  --color-surface-dark-hover: #111827;
   --color-sidebar-bg: #1a1a2e;
   --color-card-gradient-start: #2d2d44;
   --color-card-gradient-end: #1f1f33;
+
+  /* Borders & overlays */
+  --color-border: #e5e7eb;
+  --color-border-subtle: #d1d5db;
+  --color-border-dashed: #e5e7eb;
+  --color-overlay-light: rgba(0, 0, 0, 0.04);
+  --color-overlay-card: rgba(27, 33, 45, 0.05);
+  --color-overlay-card-inverted: rgba(255, 255, 255, 0.1);
+  --color-overlay-chip: rgba(255, 255, 255, 0.3);
+  --color-shadow-soft: rgba(0, 0, 0, 0.1);
+
+  /* Utility colors */
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-visa: #1434cb;
+  --color-mastercard-red: #eb001b;
+  --color-mastercard-orange: #f79e1b;
+  --color-toast-bg: #363636;
 
   /* Animation durations */
   --duration-fast: 150ms;

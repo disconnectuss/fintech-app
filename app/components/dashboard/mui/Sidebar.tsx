@@ -61,7 +61,7 @@ export default function Sidebar() {
         '& .MuiDrawer-paper': {
           width: DRAWER_WIDTH,
           boxSizing: 'border-box',
-          borderRight: '1px solid #E5E7EB',
+          borderRight: '1px solid var(--color-border)',
         },
       }}
     >
@@ -71,16 +71,16 @@ export default function Sidebar() {
           sx={{
             width: 32,
             height: 32,
-            bgcolor: '#1B212D',
+            bgcolor: 'var(--color-surface-dark)',
             borderRadius: 1,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
           }}
         >
-          <Typography sx={{ color: 'white', fontWeight: 700, fontSize: 18 }}>F</Typography>
+          <Typography sx={{ color: 'var(--color-text-inverted)', fontWeight: 700, fontSize: 18 }}>F</Typography>
         </Box>
-        <Typography variant="h6" sx={{ fontWeight: 700, color: '#1B212D' }}>
+        <Typography variant="h6" sx={{ fontWeight: 700, color: 'var(--color-text-primary)' }}>
           Fintech
         </Typography>
       </Box>
@@ -96,13 +96,13 @@ export default function Sidebar() {
                 onClick={() => handleNavigation(item.path)}
                 sx={{
                   borderRadius: 2,
-                  backgroundColor: isActive ? '#C8EE44' : 'transparent',
-                  color: isActive ? '#1B212D' : '#78778B',
+                  backgroundColor: isActive ? 'var(--color-primary)' : 'transparent',
+                  color: isActive ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
                   '&:hover': {
-                    backgroundColor: isActive ? '#C8EE44' : 'rgba(200, 238, 68, 0.1)',
+                    backgroundColor: isActive ? 'var(--color-primary)' : 'var(--color-primary-soft)',
                   },
                   '& .MuiListItemIcon-root': {
-                    color: isActive ? '#1B212D' : '#78778B',
+                    color: isActive ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
                     minWidth: 40,
                   },
                 }}
@@ -134,13 +134,15 @@ export default function Sidebar() {
                   onClick={() => handleNavigation(item.path)}
                   sx={{
                     borderRadius: 2,
-                    color: isActive ? '#1B212D' : '#78778B',
-                    backgroundColor: isActive ? 'rgba(200, 238, 68, 0.15)' : 'transparent',
+                    color: isActive ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
+                    backgroundColor: isActive ? 'var(--color-primary-soft-medium)' : 'transparent',
                     '&:hover': {
-                      backgroundColor: isActive ? 'rgba(200, 238, 68, 0.2)' : 'rgba(0, 0, 0, 0.04)',
+                      backgroundColor: isActive
+                        ? 'var(--color-primary-soft-strong)'
+                        : 'var(--color-overlay-light)',
                     },
                     '& .MuiListItemIcon-root': {
-                      color: isActive ? '#1B212D' : '#78778B',
+                      color: isActive ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
                       minWidth: 40,
                     },
                   }}
@@ -164,16 +166,16 @@ export default function Sidebar() {
               onClick={handleLogout}
               sx={{
                 borderRadius: 2,
-                color: '#78778B',
+                color: 'var(--color-text-secondary)',
                 '&:hover': {
-                  backgroundColor: 'rgba(239, 68, 68, 0.1)',
-                  color: '#ef4444',
+                  backgroundColor: 'var(--color-danger-soft)',
+                  color: 'var(--color-danger)',
                   '& .MuiListItemIcon-root': {
-                    color: '#ef4444',
+                    color: 'var(--color-danger)',
                   },
                 },
                 '& .MuiListItemIcon-root': {
-                  color: '#78778B',
+                  color: 'var(--color-text-secondary)',
                   minWidth: 40,
                 },
               }}
