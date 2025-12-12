@@ -126,7 +126,7 @@ export default function Sidebar() {
         <Divider sx={{ mb: 2 }} />
         <List>
           {bottomNavItems.map((item) => {
-            const isActive = pathname === item.path;
+            const isActive = pathname === item.path || pathname?.startsWith(`${item.path}/`);
 
             return (
               <ListItem key={item.text} disablePadding sx={{ mb: 0.5 }}>
@@ -134,12 +134,13 @@ export default function Sidebar() {
                   onClick={() => handleNavigation(item.path)}
                   sx={{
                     borderRadius: 2,
-                    color: '#78778B',
+                    color: isActive ? '#1B212D' : '#78778B',
+                    backgroundColor: isActive ? 'rgba(200, 238, 68, 0.15)' : 'transparent',
                     '&:hover': {
-                      backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                      backgroundColor: isActive ? 'rgba(200, 238, 68, 0.2)' : 'rgba(0, 0, 0, 0.04)',
                     },
                     '& .MuiListItemIcon-root': {
-                      color: '#78778B',
+                      color: isActive ? '#1B212D' : '#78778B',
                       minWidth: 40,
                     },
                   }}
@@ -149,7 +150,7 @@ export default function Sidebar() {
                     primary={item.text}
                     primaryTypographyProps={{
                       fontSize: 14,
-                      fontWeight: 500,
+                      fontWeight: isActive ? 600 : 500,
                     }}
                   />
                 </ListItemButton>

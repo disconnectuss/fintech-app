@@ -1,18 +1,21 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
+import { isAxiosError } from 'axios';
 import { useAuth } from '@/app/lib/auth-context';
 import type { SignInFormErrors } from '@/app/lib/types';
 import { GoogleIcon } from '@/app/components/ui/icons';
+
+type ApiErrorResponse = {
+  message?: string;
+};
 export default function SignInForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<SignInFormErrors>({});
   const [isLoading, setIsLoading] = useState(false);
   const { signIn } = useAuth();
-  const router = useRouter();
   const validateForm = (): boolean => {
     const newErrors: SignInFormErrors = {};
     if (!email.trim()) {
@@ -38,12 +41,15 @@ export default function SignInForm() {
     try {
       await signIn(email, password);
       toast.success('Successfully signed in!');
-      // Note: router.push is handled in auth context
-    } catch (error: any) {
-      const errorMessage =
-        error.response?.data?.message ||
-        error.message ||
-        'Failed to sign in. Please try again.';
+    } catch (error: unknown) {
+      let errorMessage = 'Failed to sign in. Please try again.';
+
+      if (isAxiosError<ApiErrorResponse>(error)) {
+        errorMessage = error.response?.data?.message || error.message || errorMessage;
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+
       toast.error(errorMessage);
     } finally {
       setIsLoading(false);
@@ -128,7 +134,7 @@ export default function SignInForm() {
       {/* Sign Up Link */}
       <div className="mt-6 text-center">
         <p className="text-sm text-gray-600">
-          Don't have an account?{' '}
+          Don&apos;t have an account?{' '}
           <Link
             href="/auth/sign-up"
             className="font-semibold text-gray-900 underline hover:text-gray-700 transition-colors"

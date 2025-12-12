@@ -18,7 +18,7 @@ import ErrorBoundary from '@/app/components/ui/ErrorBoundary';
 import { useDashboardSummary } from '@/app/lib/hooks/use-dashboard';
 const DRAWER_WIDTH = 240;
 export default function DashboardPage() {
-  const { data: summary, isLoading: summaryLoading } = useDashboardSummary();
+  const { data: summary } = useDashboardSummary();
   return (
     <AuthGuard requireAuth>
       <ErrorBoundary>
@@ -27,11 +27,11 @@ export default function DashboardPage() {
           {/* Main Content */}
           <Box
             component="main"
-            // sx={{
-            //   flexGrow: 1,
-            //   width: { sm: `calc(100% - ${DRAWER_WIDTH}px)` },
-            //   ml: { sm: `${DRAWER_WIDTH}px` },
-            // }}
+            sx={{
+              flexGrow: 1,
+              width: { sm: `calc(100% - ${DRAWER_WIDTH}px)` },
+              ml: { sm: `${DRAWER_WIDTH}px` },
+            }}
           >
             <TopBar />
             <Toolbar />

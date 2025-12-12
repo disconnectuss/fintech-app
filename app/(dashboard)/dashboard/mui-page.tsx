@@ -18,7 +18,7 @@ import ErrorBoundary from '@/app/components/ui/ErrorBoundary';
 import { useDashboardSummary } from '@/app/lib/hooks/use-dashboard';
 const DRAWER_WIDTH = 240;
 export default function MuiDashboardPage() {
-  const { data: summary, isLoading: summaryLoading } = useDashboardSummary();
+  const { data: summary } = useDashboardSummary();
   return (
     <AuthGuard requireAuth>
       <ErrorBoundary>

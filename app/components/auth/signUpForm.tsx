@@ -1,11 +1,17 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
+import { isAxiosError } from 'axios';
 import { useAuth } from '@/app/lib/auth-context';
 import { GoogleIcon } from '@/app/components/ui/icons';
 import type { SignUpFormErrors } from '@/app/lib/types';
+
+type ErrorDetail = { message?: string } | string;
+type ApiErrorResponse = {
+  message?: string;
+  details?: ErrorDetail[];
+};
 export default function SignUpForm() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -13,7 +19,6 @@ export default function SignUpForm() {
   const [errors, setErrors] = useState<SignUpFormErrors>({});
   const [isLoading, setIsLoading] = useState(false);
   const { signUp } = useAuth();
-  const router = useRouter();
   const validateForm = (): boolean => {
     const newErrors: SignUpFormErrors = {};
     if (!name.trim()) {
@@ -46,25 +51,33 @@ export default function SignUpForm() {
     try {
       await signUp(name, email, password);
       toast.success('Account created successfully!');
-      // Note: router.push is handled in auth context
-    } catch (error: any) {
-      console.error('Sign up error:', error.response || error);
-      console.error('Validation details:', error.response?.data?.details);
+    } catch (error: unknown) {
+      console.error('Sign up error:', error);
       let errorMessage = 'Failed to create account. Please try again.';
 
-      if (error.response?.status === 409) {
-        errorMessage = 'This email is already registered. Please sign in instead.';
-      } else if (error.response?.status === 400) {
-        // Check if there are validation details
-        const details = error.response?.data?.details;
-        if (details && details.length > 0) {
-          errorMessage = details.map((d: any) => d.message || d).join(', ');
-        } else {
-          errorMessage = error.response?.data?.message || 'Invalid form data. Please check your inputs.';
+      if (isAxiosError<ApiErrorResponse>(error)) {
+        const status = error.response?.status;
+        const data = error.response?.data;
+
+        if (status === 409) {
+          errorMessage = 'This email is already registered. Please sign in instead.';
+        } else if (status === 400) {
+          const details = Array.isArray(data?.details) ? data?.details : undefined;
+          if (details && details.length > 0) {
+            errorMessage = details
+              .map((detail) => (typeof detail === 'string' ? detail : detail.message ?? 'Invalid field'))
+              .join(', ');
+          } else if (data?.message) {
+            errorMessage = data.message;
+          } else {
+            errorMessage = 'Invalid form data. Please check your inputs.';
+          }
+        } else if (data?.message) {
+          errorMessage = data.message;
+        } else if (error.message) {
+          errorMessage = error.message;
         }
-      } else if (error.response?.data?.message) {
-        errorMessage = error.response.data.message;
-      } else if (error.message) {
+      } else if (error instanceof Error) {
         errorMessage = error.message;
       }
 

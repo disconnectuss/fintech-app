@@ -1,8 +1,7 @@
 'use client';
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import { dashboardAPI } from '../api';
-import { Transaction } from '../types';
-import toast from 'react-hot-toast';
+import type { Transaction } from '../types';
 export const useTransactions = (limit: number = 5): UseQueryResult<Transaction[], Error> => {
   return useQuery<Transaction[], Error>({
     queryKey: ['transactions', limit],

@@ -11,7 +11,6 @@ import {
 } from '@mui/material';
 import { MoreHoriz as MoreIcon, Wifi as WifiIcon } from '@mui/icons-material';
 import { useWalletCards } from '@/app/lib/hooks/use-wallet';
-import Image from 'next/image';
 
 export default function WalletSection() {
   const { data: cards, isLoading, isError } = useWalletCards();

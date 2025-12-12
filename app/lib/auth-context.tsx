@@ -1,29 +1,41 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { authAPI } from './api';
 import type { AuthContextType, User } from './types';
+
+const getStoredUser = (): User | null => {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  const token = window.localStorage.getItem('authToken');
+  const savedUser = window.localStorage.getItem('user');
+
+  if (!token || !savedUser) {
+    if (!token) {
+      window.localStorage.removeItem('user');
+    }
+    return null;
+  }
+
+  try {
+    return JSON.parse(savedUser) as User;
+  } catch (error) {
+    console.error('Failed to parse user data:', error);
+    window.localStorage.removeItem('authToken');
+    window.localStorage.removeItem('user');
+    return null;
+  }
+};
+
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState<User | null>(() => getStoredUser());
   const router = useRouter();
   const isAuthenticated = !!user;
-  useEffect(() => {
-    const token = localStorage.getItem('authToken');
-    const savedUser = localStorage.getItem('user');
-    if (token && savedUser) {
-      try {
-        setUser(JSON.parse(savedUser));
-      } catch (error) {
-        console.error('Failed to parse user data:', error);
-        localStorage.removeItem('authToken');
-        localStorage.removeItem('user');
-      }
-    }
-    setIsLoading(false);
-  }, []);
+  const isLoading = false;
   const signIn = async (email: string, password: string) => {
     const data = await authAPI.signIn(email, password);
     console.log('Sign in response:', data);

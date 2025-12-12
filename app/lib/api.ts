@@ -48,7 +48,9 @@ export const dashboardAPI = {
     return response.data.data || response.data;
   },
   getWorkingCapital: async (period: 'week' | 'month' | 'year' = 'month') => {
-    const response = await apiClient.get('/financial/working-capital');
+    const response = await apiClient.get('/financial/working-capital', {
+      params: { period },
+    });
     const responseData = response.data.data || response.data;
     if (responseData && typeof responseData === 'object' && Array.isArray(responseData.data)) {
       return responseData.data;
@@ -64,7 +66,9 @@ export const dashboardAPI = {
     return [];
   },
   getTransactions: async (limit: number = 5) => {
-    const response = await apiClient.get('/financial/transactions/recent');
+    const response = await apiClient.get('/financial/transactions/recent', {
+      params: { limit },
+    });
     const data = response.data.data?.transactions || response.data.data || response.data;
     return Array.isArray(data) ? data : [];
   },

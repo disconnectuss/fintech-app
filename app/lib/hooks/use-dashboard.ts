@@ -2,7 +2,6 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import { dashboardAPI } from '../api';
 import { DashboardSummary, WorkingCapitalData } from '../types';
-import toast from 'react-hot-toast';
 export const useDashboardSummary = (): UseQueryResult<DashboardSummary, Error> => {
   return useQuery<DashboardSummary, Error>({
     queryKey: ['dashboard', 'summary'],
