@@ -56,12 +56,9 @@ export default function SignInForm() {
     }
   };
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
-      <div>
-        <label
-          htmlFor="email"
-          className="block text-sm font-medium text-gray-900 mb-2"
-        >
+    <form onSubmit={handleSubmit} className="space-y-6" style={{ fontFamily: 'var(--font-kumbh-sans)' }}>
+      <div className="space-y-2">
+        <label htmlFor="email" className="block text-sm font-semibold text-[#1b1e2b]">
           Email
         </label>
         <input
@@ -77,21 +74,18 @@ export default function SignInForm() {
             }
           }}
           disabled={isLoading}
-          className={`w-full px-4 py-3 border ${errors.email
+          className={`w-full px-5 py-4 rounded-2xl bg-white text-[16px] font-normal shadow-[0_12px_30px_rgba(16,24,40,0.08)] border ${errors.email
             ? 'border-red-500'
-            : 'border-gray-300'
-            } rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-lime-500 focus:border-lime-500 disabled:bg-gray-50 disabled:cursor-not-allowed transition-colors`}
+            : 'border-transparent'
+            } text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary)]/40 disabled:bg-gray-50 disabled:cursor-not-allowed transition-all`}
           placeholder="example@gmail.com"
         />
         {errors.email && (
           <p className="mt-1.5 text-sm text-red-600">{errors.email}</p>
         )}
       </div>
-      <div>
-        <label
-          htmlFor="password"
-          className="block text-sm font-medium text-gray-900 mb-2"
-        >
+      <div className="space-y-2">
+        <label htmlFor="password" className="block text-sm font-semibold text-[#1b1e2b]">
           Password
         </label>
         <input
@@ -107,39 +101,41 @@ export default function SignInForm() {
             }
           }}
           disabled={isLoading}
-          className={`w-full px-4 py-3 border ${errors.password
+          className={`w-full px-5 py-4 rounded-2xl bg-white text-[16px] font-normal shadow-[0_12px_30px_rgba(16,24,40,0.08)] border ${errors.password
             ? 'border-red-500'
-            : 'border-gray-300'
-            } rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-lime-500 focus:border-lime-500 disabled:bg-gray-50 disabled:cursor-not-allowed transition-colors`}
+            : 'border-transparent'
+            } text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--brand-primary)]/40 disabled:bg-gray-50 disabled:cursor-not-allowed transition-all`}
           placeholder="••••••••"
         />
         {errors.password && (
           <p className="mt-1.5 text-sm text-red-600">{errors.password}</p>
         )}
       </div>
-      <button
-        type="submit"
-        disabled={isLoading}
-        className="w-full bg-[var(--brand-primary)] text-gray-900 font-semibold py-3 px-4 rounded-lg mt-2 hover:bg-[var(--brand-primary-hover)] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--brand-primary)]"
-      >
-        {isLoading ? 'Signing in...' : 'Sign In'}
-      </button>
-      <button
-        type="button"
-        className="w-full bg-[var(--surface-base)] border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300 transition-all duration-200 flex items-center justify-center gap-3"
-      >
-        <GoogleIcon size={24} />
-        Sign in with google
-      </button>
+      <div className="space-y-7">
+        <button
+          type="submit"
+          disabled={isLoading}
+          className="w-full bg-[var(--brand-primary)] text-[#111827] font-semibold py-4 px-5 text-[16px] rounded-2xl shadow-[0_20px_40px_rgba(138,204,31,0.4)] hover:bg-[var(--brand-primary-hover)] transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--brand-primary)]"
+        >
+          {isLoading ? 'Signing in...' : 'Sign In'}
+        </button>
+        <button
+          type="button"
+          className="w-full bg-white border border-[#e4e6ed] hover:bg-gray-50 text-gray-700 font-medium py-4 px-5 rounded-2xl focus:outline-none focus:ring-2 focus:ring-gray-200 transition-all duration-200 flex items-center justify-center gap-3 text-[16px] shadow-[0_12px_30px_rgba(15,23,42,0.05)]"
+        >
+          <GoogleIcon size={24} />
+          Sign in with google
+        </button>
+      </div>
       {/* Sign Up Link */}
-      <div className="mt-6 text-center">
+      <div className="pt-2 text-center">
         <p className="text-sm text-gray-600">
           Don&apos;t have an account?{' '}
-          <Link
-            href="/auth/sign-up"
-            className="font-semibold text-gray-900 underline hover:text-gray-700 transition-colors"
-          >
-            Sign up
+          <Link href="/auth/sign-up" className="font-semibold text-gray-900 hover:text-gray-700 transition-colors relative inline-flex items-center">
+            <span className="relative">
+              Sign up
+              <span className="absolute left-0 bottom-0 w-full h-1 bg-[var(--brand-primary)] opacity-70 translate-y-1 rounded-full" />
+            </span>
           </Link>
         </p>
       </div>
