@@ -26,7 +26,7 @@ export default function Button({
   return (
     <button
       className={clsx(
-        'inline-flex items-center justify-center rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--brand-primary)]',
+        'inline-flex items-center justify-center rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-(--brand-primary)',
         variantClasses[variant],
         sizeClasses[size],
         isDisabled && 'opacity-50 cursor-not-allowed',
