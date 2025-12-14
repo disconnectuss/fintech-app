@@ -113,15 +113,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [user, router]);
   const signIn = async (email: string, password: string) => {
     const data = await authAPI.signIn(email, password);
-    console.log('Sign in response:', data);
     const responseData = data.data || data;
     const token = responseData.accessToken || responseData.token || data.accessToken;
     const userData = responseData.user || data.user;
-    console.log('Token:', token);
-    console.log('User data:', userData);
+
     if (!token || !userData) {
       throw new Error('Invalid response from server');
     }
+
     localStorage.setItem('authToken', token);
     localStorage.setItem('user', JSON.stringify(userData));
     setUser(userData);
@@ -129,15 +128,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
   const signUp = async (name: string, email: string, password: string) => {
     const data = await authAPI.signUp(name, email, password);
-    console.log('Sign up response:', data);
     const responseData = data.data || data;
     const token = responseData.accessToken || responseData.token || data.accessToken;
     const userData = responseData.user || data.user;
-    console.log('Token:', token);
-    console.log('User data:', userData);
+
     if (!token || !userData) {
       throw new Error('Invalid response from server');
     }
+
     localStorage.setItem('authToken', token);
     localStorage.setItem('user', JSON.stringify(userData));
     setUser(userData);

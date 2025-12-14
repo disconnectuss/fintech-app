@@ -38,9 +38,14 @@ export default function RootLayout({
                   style: {
                     background: 'var(--toast-bg)',
                     color: 'var(--text-inverted)',
+                    zIndex: 99999,
                   },
                   success: {
                     duration: 3000,
+                    style: {
+                      background: '#10b981',
+                      color: '#ffffff',
+                    },
                     iconTheme: {
                       primary: 'var(--success-500)',
                       secondary: 'var(--text-inverted)',
@@ -48,6 +53,10 @@ export default function RootLayout({
                   },
                   error: {
                     duration: 4000,
+                    style: {
+                      background: '#ef4444',
+                      color: '#ffffff',
+                    },
                     iconTheme: {
                       primary: 'var(--danger-500)',
                       secondary: 'var(--text-inverted)',
