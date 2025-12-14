@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { jwtDecode } from 'jwt-decode';
 import toast from 'react-hot-toast';
 import { authAPI } from './api';
-import type { AuthContextType, User } from './types';
+import type { AuthContextType, SignUpResult, User } from './types';
 
 interface JwtPayload {
   exp: number;
@@ -67,12 +67,68 @@ const getStoredUser = (): User | null => {
   }
 };
 
+type AuthPayload = Record<string, unknown>;
+
+const unwrapDataLayer = (payload: unknown): AuthPayload => {
+  let current: unknown = payload;
+  while (
+    current &&
+    typeof current === 'object' &&
+    !Array.isArray(current) &&
+    'data' in (current as Record<string, unknown>)
+  ) {
+    const next = (current as Record<string, unknown>).data;
+    if (!next || typeof next !== 'object' || Array.isArray(next)) {
+      break;
+    }
+    current = next;
+  }
+
+  return current && typeof current === 'object' && !Array.isArray(current)
+    ? (current as AuthPayload)
+    : {};
+};
+
+const extractAuthSession = (payload: unknown): { token: string | null; user: User | null } => {
+  const normalized = unwrapDataLayer(payload) as Record<string, any>;
+
+  const tokenCandidates = [
+    normalized.accessToken,
+    normalized.token,
+    normalized.access_token,
+    normalized?.access?.token,
+    normalized?.authToken,
+    normalized?.tokens?.accessToken,
+    normalized?.tokens?.access?.token,
+    normalized?.tokens?.token,
+  ];
+
+  const token = tokenCandidates.find((candidate) => typeof candidate === 'string' && candidate.length > 0) ?? null;
+
+  const possibleUsers = [normalized.user, normalized.profile, normalized.account];
+  const user = possibleUsers.find((candidate) => candidate && typeof candidate === 'object') ?? null;
+
+  return {
+    token: token as string | null,
+    user: (user as User) ?? null,
+  };
+};
+
+const persistSession = (token: string, userData: User) => {
+  localStorage.setItem('authToken', token);
+  localStorage.setItem('user', JSON.stringify(userData));
+};
+
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(() => getStoredUser());
   const router = useRouter();
   const isAuthenticated = !!user;
   const isLoading = false;
+  const startSession = (token: string, sessionUser: User) => {
+    persistSession(token, sessionUser);
+    setUser(sessionUser);
+  };
 
   // Auto-logout when token expires
   useEffect(() => {
@@ -112,34 +168,40 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     checkTokenExpiry();
   }, [user, router]);
   const signIn = async (email: string, password: string) => {
-    const data = await authAPI.signIn(email, password);
-    const responseData = data.data || data;
-    const token = responseData.accessToken || responseData.token || data.accessToken;
-    const userData = responseData.user || data.user;
+    const payload = await authAPI.signIn(email, password);
+    const { token, user: sessionUser } = extractAuthSession(payload);
 
-    if (!token || !userData) {
+    if (!token || !sessionUser) {
       throw new Error('Invalid response from server');
     }
 
-    localStorage.setItem('authToken', token);
-    localStorage.setItem('user', JSON.stringify(userData));
-    setUser(userData);
+    startSession(token, sessionUser);
     router.push('/dashboard');
   };
-  const signUp = async (name: string, email: string, password: string) => {
-    const data = await authAPI.signUp(name, email, password);
-    const responseData = data.data || data;
-    const token = responseData.accessToken || responseData.token || data.accessToken;
-    const userData = responseData.user || data.user;
+  const signUp = async (name: string, email: string, password: string): Promise<SignUpResult> => {
+    const payload = await authAPI.signUp(name, email, password);
+    const { token, user: sessionUser } = extractAuthSession(payload);
 
-    if (!token || !userData) {
-      throw new Error('Invalid response from server');
+    if (token && sessionUser) {
+      startSession(token, sessionUser);
+      router.push('/dashboard');
+      return 'authenticated';
     }
 
-    localStorage.setItem('authToken', token);
-    localStorage.setItem('user', JSON.stringify(userData));
-    setUser(userData);
-    router.push('/dashboard');
+    try {
+      const loginPayload = await authAPI.signIn(email, password);
+      const { token: loginToken, user: loginUser } = extractAuthSession(loginPayload);
+      if (loginToken && loginUser) {
+        startSession(loginToken, loginUser);
+        router.push('/dashboard');
+        return 'authenticated';
+      }
+    } catch (error) {
+      console.warn('Auto sign-in after registration failed:', error);
+    }
+
+    router.push('/auth/sign-in');
+    return 'needs-sign-in';
   };
   const signOut = () => {
     localStorage.removeItem('authToken');

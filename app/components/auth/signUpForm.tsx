@@ -33,11 +33,14 @@ export default function SignUpForm() {
       password: '',
     },
   });
-
   const onSubmit = async (data: SignUpFormData) => {
     try {
-      await signUp(data.name, data.email, data.password);
-      toast.success('Account created successfully!');
+      const result = await signUp(data.name, data.email, data.password);
+      if (result === 'needs-sign-in') {
+        toast.success('Account created successfully! Please sign in to continue.');
+      } else {
+        toast.success('Account created successfully!');
+      }
     } catch (error: unknown) {
       console.error('Sign up error:', error);
       let errorMessage = 'Failed to create account. Please try again.';
